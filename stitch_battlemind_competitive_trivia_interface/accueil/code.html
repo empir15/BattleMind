@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>BattleMind - Digital Warfare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#005a51",
+                        "on-primary-fixed-variant": "#005048",
+                        "on-primary-fixed": "#00201c",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed-dim": "#17deca",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2e3037",
+                        "on-surface": "#e1e2eb",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#4ffbe6",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1d2026",
+                        "surface-tint": "#17deca",
+                        "on-error": "#690005",
+                        "surface-dim": "#10131a",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#cfa7ff",
+                        "background": "#10131a",
+                        "primary-container": "#03dac6",
+                        "primary": "#49f7e2",
+                        "outline": "#849490",
+                        "surface-container-low": "#191c22",
+                        "inverse-primary": "#006a60",
+                        "surface-variant": "#32353c",
+                        "on-primary": "#003731",
+                        "tertiary": "#cae0ff",
+                        "tertiary-container": "#97c6ff",
+                        "on-surface-variant": "#bacac6",
+                        "on-secondary-fixed-variant": "#5e289b",
+                        "surface-bright": "#363940",
+                        "on-secondary": "#460283",
+                        "secondary": "#dab9ff",
+                        "on-tertiary": "#003258",
+                        "on-secondary-fixed": "#2a0053",
+                        "secondary-fixed": "#eedbff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "surface": "#10131a",
+                        "secondary-fixed-dim": "#dab9ff",
+                        "secondary-container": "#602b9d",
+                        "surface-container-high": "#272a31",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-background": "#e1e2eb",
+                        "on-tertiary-container": "#00528c",
+                        "outline-variant": "#3b4a47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0b0e14;
+            color: #e1e2eb;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(73, 247, 226, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .neon-glow-primary {
+            box-shadow: 0 0 15px rgba(73, 247, 226, 0.3);
+        }
+
+        .neon-glow-secondary {
+            box-shadow: 0 0 15px rgba(218, 185, 255, 0.3);
+        }
+
+        .bg-mesh {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(73, 247, 226, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(96, 43, 157, 0.2) 0px, transparent 50%);
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(73, 247, 226, 0) 0%, rgba(73, 247, 226, 0.02) 50%, rgba(73, 247, 226, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col bg-surface-container-lowest relative">
+<div class="fixed inset-0 bg-mesh pointer-events-none"></div>
+<div class="scanline"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-low/60 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-container-margin py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full border border-primary/30 overflow-hidden active:scale-95 transition-transform cursor-pointer">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdVrTVkpXHEQ3IU1wXb33aWUsQCn5fl3xZC6KQU6dxPRJ3VWPMXd-3LfBKbSdJaUsbCRqy1gkNny-jM1NAdAzeQIbGcp8MQtTOJRGyTm8EhOcLJYL1a7_8z1XinGIHDljLKmTCwiPHJZN7ts_Fvq5KiIyayifB8HP293ibJPzTyKJaiFYUOZUlakoq_vBucLifM2SzBo8VQMP_zHLfEgDmJ4fupDYNQdEzBNVHu84cYNHyaCyi1yJdoEpDPaGb-lG9TCeHkglbwNmM"/>
+</div>
+</div>
+<h1 class="font-display-lg text-headline-md tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">
+            BATTLEMIND
+        </h1>
+<button class="bg-surface-container-high px-sm py-xs rounded-lg flex items-center gap-xs text-primary font-label-lg hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+            1,250 CR
+        </button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow pt-24 pb-32 px-container-margin relative z-10">
+<!-- Hero Section -->
+<section class="mb-xl text-center">
+<p class="font-label-lg text-on-surface-variant mb-xs tracking-widest">COMMAND CENTER</p>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface mb-lg">Prêt pour le combat mental ?</h2>
+</section>
+<!-- Bento Grid Menu -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter max-w-6xl mx-auto">
+<!-- Jouer en Ligne (Primary Action) -->
+<div class="lg:col-span-7 group cursor-pointer">
+<div class="glass-card h-[280px] rounded-xl p-lg flex flex-col justify-end relative overflow-hidden ring-1 ring-primary/20 neon-glow-primary">
+<img class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-700 pointer-events-none" data-alt="A high-tech digital battlefield visualization with neon blue and cyan grid patterns and glowing neural network connections. The atmosphere is intense and futuristic, suggesting a high-stakes competitive eSports arena environment. Soft light leaks from the corners emphasize the digital glassmorphism aesthetic of the BattleMind interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSINEU9a2AhBqr_sfAIpdvq_QUu1O2MD01oIZmITrNDrWA6AVOt_zYBAcGuPyhjSkJ9DV35qjl9r7dKwxlYZwEVONNCvpnVjXAF5DXL_XF48jTbvtWG59zgYj_fiLhD_U2YG6pkWf0AkJnDwJks9v2uFdQQbdJCkQCMlpmjQv9t1IrUl2Uh_7mBicjTBT3RngBWFCEM9RrFD1Hu5PO83GbXdJXmEhrnZaf4zSNr-fT8aF12dom6lralf6AdX9GhWm66ovuSwfecWue"/>
+<div class="absolute top-lg right-lg">
+<span class="bg-primary text-on-primary px-sm py-xs rounded-full font-label-sm animate-pulse">LIVE</span>
+</div>
+<div class="relative z-20">
+<span class="material-symbols-outlined text-primary text-[40px] mb-md" style="font-variation-settings: 'FILL' 1;">public</span>
+<h3 class="font-headline-md text-primary mb-xs">Jouer en Ligne</h3>
+<p class="font-body-md text-on-surface-variant max-w-[280px]">Affrontez des adversaires du monde entier en temps réel.</p>
+</div>
+</div>
+</div>
+<!-- Jouer en Local -->
+<div class="lg:col-span-5 group cursor-pointer">
+<div class="glass-card h-[280px] rounded-xl p-lg flex flex-col justify-end relative overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700 pointer-events-none" data-alt="A cozy but futuristic gaming setup with two controllers on a dark desk, illuminated by subtle cyan and purple ambient LED strips. The scene captures the essence of local multiplayer gaming with friends. The lighting is low-key, professional, and consistent with the BattleMind dark-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpsEsHLyTNGPTLW_rAyjUxyYcgZrw9tlkb9cMfEKA7hihnn4UKGjn1NDOzYuxPRp0eeucpfmBYCI0kJ6gidGD59Ei20Jy53thISn5VPaW8UqjQJAEkZ3OebLi79f5dgjEbwTBWNrN5QH6Z-NW5PIvveZeyx7GgWQ7uLzN0vQtedf82qB3-o4a9C5cO8CO9mftM_A5IJaTjbDBOpEswWJ6S-M21WUT_devVuyfpHbXB6H_1_-a8uEsl1rW_UBx1gXIoaVub_ACeO5YL"/>
+<div class="relative z-20">
+<span class="material-symbols-outlined text-on-surface text-[32px] mb-md">groups</span>
+<h3 class="font-headline-md text-on-surface mb-xs">Jouer en Local</h3>
+<p class="font-body-md text-on-surface-variant">Duel en écran partagé ou mode entraînement solo.</p>
+</div>
+</div>
+</div>
+<!-- Paramètres -->
+<div class="lg:col-span-4 group cursor-pointer">
+<div class="glass-card h-[180px] rounded-xl p-md flex items-center gap-md relative overflow-hidden">
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface group-hover:bg-primary/20 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">settings</span>
+</div>
+<div>
+<h3 class="font-headline-md text-on-surface text-lg">Paramètres</h3>
+<p class="font-label-sm text-on-surface-variant">Audio, Graphismes, Interface</p>
+</div>
+</div>
+</div>
+<!-- À propos -->
+<div class="lg:col-span-4 group cursor-pointer">
+<div class="glass-card h-[180px] rounded-xl p-md flex items-center gap-md relative overflow-hidden">
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface group-hover:bg-secondary/20 group-hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[32px]">info</span>
+</div>
+<div>
+<h3 class="font-headline-md text-on-surface text-lg">À propos</h3>
+<p class="font-label-sm text-on-surface-variant">BattleMind v2.4.0 • Mentions Légales</p>
+</div>
+</div>
+</div>
+<!-- Stat Card (Bonus) -->
+<div class="lg:col-span-4 group">
+<div class="glass-card h-[180px] rounded-xl p-md flex flex-col justify-between border-primary/20">
+<div class="flex justify-between items-start">
+<h3 class="font-label-lg text-primary">VOTRE RANG</h3>
+<span class="material-symbols-outlined text-primary text-[20px]">trending_up</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="text-[32px] font-headline-lg text-on-surface">ELITE III</span>
+<div class="w-20 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%] neon-glow-primary"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 px-base shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(73,247,226,0.6)] hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-sm text-label-sm mt-1">Leagues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">Comm</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Player</span>
+</a>
+</nav>
+<script>
+        // Simple interactive effect for mouse movement on glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Atmosphere initialization
+        window.onload = () => {
+            console.log('BattleMind Interface Initialized');
+        };
+    </script>
+</body></html>

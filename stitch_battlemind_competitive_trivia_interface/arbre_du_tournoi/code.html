@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>BATTLEMIND | Tournament Bracket</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#001d36",
+                    "on-primary-container": "#005a51",
+                    "on-primary-fixed-variant": "#005048",
+                    "on-primary-fixed": "#00201c",
+                    "surface-container-highest": "#32353c",
+                    "primary-fixed-dim": "#17deca",
+                    "error-container": "#93000a",
+                    "inverse-on-surface": "#2e3037",
+                    "on-surface": "#e1e2eb",
+                    "inverse-surface": "#e1e2eb",
+                    "primary-fixed": "#4ffbe6",
+                    "error": "#ffb4ab",
+                    "surface-container": "#1d2026",
+                    "surface-tint": "#17deca",
+                    "on-error": "#690005",
+                    "surface-dim": "#10131a",
+                    "surface-container-lowest": "#0b0e14",
+                    "on-secondary-container": "#cfa7ff",
+                    "background": "#10131a",
+                    "primary-container": "#03dac6",
+                    "primary": "#49f7e2",
+                    "outline": "#849490",
+                    "surface-container-low": "#191c22",
+                    "inverse-primary": "#006a60",
+                    "surface-variant": "#32353c",
+                    "on-primary": "#003731",
+                    "tertiary": "#cae0ff",
+                    "tertiary-container": "#97c6ff",
+                    "on-surface-variant": "#bacac6",
+                    "on-secondary-fixed-variant": "#5e289b",
+                    "surface-bright": "#363940",
+                    "on-secondary": "#460283",
+                    "secondary": "#dab9ff",
+                    "on-tertiary": "#003258",
+                    "on-secondary-fixed": "#2a0053",
+                    "secondary-fixed": "#eedbff",
+                    "tertiary-fixed": "#d1e4ff",
+                    "on-tertiary-fixed-variant": "#00497d",
+                    "surface": "#10131a",
+                    "secondary-fixed-dim": "#dab9ff",
+                    "secondary-container": "#602b9d",
+                    "surface-container-high": "#272a31",
+                    "tertiary-fixed-dim": "#9ecaff",
+                    "on-background": "#e1e2eb",
+                    "on-tertiary-container": "#00528c",
+                    "outline-variant": "#3b4a47"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "gutter": "16px",
+                    "xl": "32px",
+                    "container-margin": "20px",
+                    "lg": "24px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Sora"],
+                    "body-md": ["Inter"],
+                    "label-lg": ["Sora"],
+                    "headline-lg": ["Sora"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Sora"],
+                    "headline-lg-mobile": ["Sora"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(to bottom right, rgba(255,255,255,0.05), transparent);
+        }
+        .active-path-horizontal {
+            background: linear-gradient(to right, #49f7e2, transparent);
+            box-shadow: 0 0 15px rgba(73, 247, 226, 0.3);
+        }
+        .active-path-vertical {
+            background: linear-gradient(to bottom, #49f7e2, #49f7e2);
+            box-shadow: 0 0 15px rgba(73, 247, 226, 0.3);
+        }
+        .winning-glow {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(73, 247, 226, 0.2); border-color: rgba(73, 247, 226, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(73, 247, 226, 0.5); border-color: rgba(73, 247, 226, 0.8); }
+        }
+        body {
+            background-color: #0b0e14;
+            color: #e1e2eb;
+            overflow-x: hidden;
+        }
+        .bracket-container::-webkit-scrollbar { height: 4px; }
+        .bracket-container::-webkit-scrollbar-thumb { background: rgba(73, 247, 226, 0.2); border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-low/60 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-container-margin py-md">
+<div class="flex items-center gap-md">
+<h1 class="font-display-lg text-display-lg tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">BATTLEMIND</h1>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-primary font-label-lg text-label-lg hover:opacity-80 transition-opacity" href="#">Tournaments</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:opacity-80 transition-opacity" href="#">Rankings</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:opacity-80 transition-opacity" href="#">Live</a>
+</div>
+<div class="flex items-center gap-xs bg-surface-container-high px-sm py-xs rounded-full border border-white/5 active:scale-95 transition-transform">
+<span class="text-primary font-label-lg text-label-lg">1,250 CR</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/30">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfKShAE07avrFLrZ18CKBc6Hp-NaXJSUkY1hCj2CQ_83o97kB0btY6yiCdkengCG3LZvEBR-BFf5Hv40VIW6oufIKZMqzoiRQ1WpFtPjDlaeFhDUP6M4iz8EAQQ8qXAKbbzmJY1rYt77LrehpM_ea6TCjo0BbOnIy8KQw4P6dTx1fJuFDW-6MbInlF_rKDe4zRwniozKhtDaE9sAaACpk1Jqz9LVVbwJ61IMhDwDC41nPk6hahrtllCZczrqPpWZ1j7KEUn-DuRt9y"/>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-32 min-h-screen">
+<!-- Tournament Hero Info -->
+<section class="px-container-margin mb-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<div class="flex items-center gap-xs text-primary mb-xs">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Global Pro League • Finals</span>
+</div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg">GRAND MASTERS BRACKET</h2>
+</div>
+<div class="flex gap-sm">
+<div class="glass-card px-md py-sm rounded-lg flex flex-col items-center min-w-[100px]">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Prize Pool</span>
+<span class="text-primary font-headline-md text-headline-md">$50,000</span>
+</div>
+<div class="glass-card px-md py-sm rounded-lg flex flex-col items-center min-w-[100px]">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Active Players</span>
+<span class="text-primary font-headline-md text-headline-md">128</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bracket Visualization -->
+<div class="bracket-container overflow-x-auto px-container-margin">
+<div class="flex gap-16 min-w-max pb-lg">
+<!-- Quarter Finals -->
+<div class="flex flex-col justify-around gap-12 w-64">
+<div class="text-on-surface-variant font-label-lg text-label-lg uppercase tracking-widest mb-base px-sm border-l-2 border-primary/20">Quarter-Finals</div>
+<!-- Match 1 -->
+<div class="relative">
+<div class="flex flex-col gap-xs glass-card p-xs rounded-xl border-white/10 w-full">
+<div class="flex items-center justify-between bg-surface-container-highest/40 p-sm rounded-lg">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-weight="fill">shield</span>
+<span class="font-label-lg text-label-lg">NEON_VAPOR</span>
+</div>
+<span class="text-on-surface-variant">0</span>
+</div>
+<div class="flex items-center justify-between bg-primary/10 p-sm rounded-lg border border-primary/30 winning-glow">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-weight="fill">rocket_launch</span>
+<span class="font-label-lg text-label-lg text-primary">CYBER_DRAGONS</span>
+</div>
+<span class="font-bold text-primary">2</span>
+</div>
+</div>
+<!-- Path -->
+<div class="absolute -right-16 top-1/2 w-16 h-px active-path-horizontal"></div>
+</div>
+<!-- Match 2 -->
+<div class="relative">
+<div class="flex flex-col gap-xs glass-card p-xs rounded-xl border-white/10 w-full">
+<div class="flex items-center justify-between bg-primary/10 p-sm rounded-lg border border-primary/30 winning-glow">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-weight="fill">bolt</span>
+<span class="font-label-lg text-label-lg text-primary">VOID_WALKERS</span>
+</div>
+<span class="font-bold text-primary">2</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-highest/40 p-sm rounded-lg">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">category</span>
+<span class="font-label-lg text-label-lg">TEAM_SOLO</span>
+</div>
+<span class="text-on-surface-variant">1</span>
+</div>
+</div>
+<!-- Path -->
+<div class="absolute -right-16 top-1/2 w-16 h-px active-path-horizontal"></div>
+<!-- Vertical Connector -->
+<div class="absolute -right-16 bottom-1/2 w-px h-[104px] active-path-vertical"></div>
+<div class="absolute -right-16 top-1/2 w-px h-[104px] active-path-vertical"></div>
+</div>
+<!-- Match 3 -->
+<div class="relative">
+<div class="flex flex-col gap-xs glass-card p-xs rounded-xl border-white/10 w-full">
+<div class="flex items-center justify-between bg-surface-container-highest/40 p-sm rounded-lg">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">ac_unit</span>
+<span class="font-label-lg text-label-lg">GLACIER_OPS</span>
+</div>
+<span class="text-on-surface-variant">1</span>
+</div>
+<div class="flex items-center justify-between bg-primary/10 p-sm rounded-lg border border-primary/30 winning-glow">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-weight="fill">skull</span>
+<span class="font-label-lg text-label-lg text-primary">PHANTOM_ACE</span>
+</div>
+<span class="font-bold text-primary">2</span>
+</div>
+</div>
+<div class="absolute -right-16 top-1/2 w-16 h-px bg-white/10"></div>
+</div>
+<!-- Match 4 -->
+<div class="relative">
+<div class="flex flex-col gap-xs glass-card p-xs rounded-xl border-white/10 w-full">
+<div class="flex items-center justify-between bg-primary/10 p-sm rounded-lg border border-primary/30 winning-glow">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-weight="fill">diamond</span>
+<span class="font-label-lg text-label-lg text-primary">ZENITH_FLUX</span>
+</div>
+<span class="font-bold text-primary">2</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-highest/40 p-sm rounded-lg">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">emergency</span>
+<span class="font-label-lg text-label-lg">CRIMSON_TIDE</span>
+</div>
+<span class="text-on-surface-variant">0</span>
+</div>
+</div>
+<div class="absolute -right-16 top-1/2 w-16 h-px bg-white/10"></div>
+</div>
+</div>
+<!-- Semi Finals -->
+<div class="flex flex-col justify-around gap-12 w-64">
+<div class="text-on-surface-variant font-label-lg text-label-lg uppercase tracking-widest mb-base px-sm border-l-2 border-primary/20">Semi-Finals</div>
+<!-- Match 5 -->
+<div class="relative">
+<div class="flex flex-col gap-xs glass-card p-xs rounded-xl border-white/10 w-full">
+<div class="flex items-center justify-between bg-surface-container-highest/40 p-sm rounded-lg border-b border-white/5">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant" data-weight="fill">rocket_launch</span>
+<span class="font-label-lg text-label-lg">CYBER_DRAGONS</span>
+</div>
+<span class="text-on-surface-variant">--</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-highest/40 p-sm rounded-lg">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant" data-weight="fill">bolt</span>
+<span class="font-label-lg text-label-lg">VOID_WALKERS</span>
+</div>
+<span class="text-on-surface-variant">--</span>
+</div>
+</div>
+<div class="absolute -right-16 top-1/2 w-16 h-px bg-white/10"></div>
+<div class="absolute left-0 -top-8 bg-primary/20 text-primary font-label-sm text-[10px] px-2 py-0.5 rounded uppercase tracking-tighter">Live in 2h</div>
+</div>
+<!-- Match 6 -->
+<div class="relative">
+<div class="flex flex-col gap-xs glass-card p-xs rounded-xl border-white/10 w-full">
+<div class="flex items-center justify-between bg-surface-container-highest/40 p-sm rounded-lg">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant" data-weight="fill">skull</span>
+<span class="font-label-lg text-label-lg">PHANTOM_ACE</span>
+</div>
+<span class="text-on-surface-variant">--</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-highest/40 p-sm rounded-lg">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant" data-weight="fill">diamond</span>
+<span class="font-label-lg text-label-lg">ZENITH_FLUX</span>
+</div>
+<span class="text-on-surface-variant">--</span>
+</div>
+</div>
+<div class="absolute -right-16 top-1/2 w-16 h-px bg-white/10"></div>
+</div>
+</div>
+<!-- Grand Final -->
+<div class="flex flex-col justify-center gap-12 w-80">
+<div class="text-primary font-label-lg text-label-lg uppercase tracking-widest mb-base px-sm border-l-2 border-primary flex items-center gap-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+                        Grand Final
+                    </div>
+<div class="relative glass-card p-md rounded-2xl border-primary/20 bg-primary/5 overflow-hidden group">
+<!-- Background glow effect -->
+<div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 blur-[80px] group-hover:bg-primary/30 transition-all"></div>
+<div class="flex flex-col gap-md relative z-10">
+<div class="flex items-center justify-between gap-xl">
+<div class="flex flex-col items-center gap-sm text-center">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant">help_outline</span>
+</div>
+<span class="font-label-lg text-label-lg uppercase opacity-40">TBD</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-primary font-display-lg text-headline-md tracking-widest italic opacity-50">VS</span>
+<div class="h-10 w-px bg-gradient-to-b from-primary/0 via-primary/40 to-primary/0"></div>
+</div>
+<div class="flex flex-col items-center gap-sm text-center">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant">help_outline</span>
+</div>
+<span class="font-label-lg text-label-lg uppercase opacity-40">TBD</span>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-white/10 flex flex-col items-center gap-xs">
+<div class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                    Oct 24, 21:00 GMT
+                                </div>
+<button class="mt-sm w-full py-sm bg-primary text-on-primary font-label-lg text-label-lg rounded-lg active:scale-95 transition-transform uppercase tracking-wider font-bold">
+                                    Pre-Match Stats
+                                </button>
+</div>
+</div>
+</div>
+<!-- Trophy Display -->
+<div class="flex flex-col items-center gap-sm opacity-60">
+<div class="relative">
+<span class="material-symbols-outlined text-[80px] text-primary" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<div class="absolute inset-0 bg-primary/20 blur-2xl -z-10 animate-pulse"></div>
+</div>
+<span class="font-headline-md text-headline-md text-primary tracking-widest">CHAMPIONSHIP</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Latest Match Feed (Bento Style) -->
+<section class="px-container-margin mt-xl max-w-7xl mx-auto">
+<h3 class="font-headline-md text-headline-md mb-lg">MATCH ANALYTICS</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Large Highlight Card -->
+<div class="md:col-span-2 relative glass-card rounded-2xl overflow-hidden min-h-[280px] flex flex-col justify-end p-lg">
+<img alt="Arena Match Highlight" class="absolute inset-0 w-full h-full object-cover -z-10 brightness-50" data-alt="A high-intensity eSports arena filled with neon blue and cyan lighting. A professional gaming setup is shown in the foreground with sharp silhouettes of players in focus. The atmosphere is electric, futuristic, and competitive with atmospheric smoke and lens flares across the dark arena environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjxEHXBq44WjfSFk1fB7gJbcxRXA_Ebt1R8cVPrKmtZpz2J9MlkaCMBf3kKgVSWMMX6hzUQ7LUjYXEW4CsDZVawRjt8Gjl843XMyk6qKC_xfuUU_MXMIpxpiLawf8_bn_P_s1_o9orzxx0XpLGxLm-f_Bp9oA-hQKioou52Q9jTe8usugy0PUXEzK_JkRVpiHD7ACG5eAGupvMNHONzjN5Zx0XI2IuY5khL5d4MnLfWbHT1aAnHrUJ-WLZDxXJReidGddh6NsHAccZ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent -z-10"></div>
+<div class="flex flex-col gap-xs">
+<span class="bg-primary/20 text-primary w-fit px-sm py-xs rounded font-label-sm text-label-sm">Top Play</span>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-white">PHANTOM_ACE: 1v4 Clutch</h4>
+<p class="text-on-surface-variant max-w-md">Unbelievable performance in the lower bracket. Phantom Ace secures the win with 12 seconds remaining on the clock.</p>
+</div>
+</div>
+<!-- Vertical Stat Card -->
+<div class="glass-card rounded-2xl p-lg flex flex-col gap-md">
+<h5 class="text-primary font-label-lg text-label-lg uppercase tracking-widest">MVP Leaderboard</h5>
+<div class="flex flex-col gap-sm">
+<div class="flex items-center justify-between p-sm rounded-lg bg-white/5 border border-white/5">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">1</div>
+<span class="font-label-lg text-label-lg">Slyth_44</span>
+</div>
+<span class="text-primary font-bold">4.2 KDA</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg bg-white/5 border border-white/5">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white">2</div>
+<span class="font-label-lg text-label-lg">Zero_Cool</span>
+</div>
+<span class="text-on-surface-variant">3.8 KDA</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg bg-white/5 border border-white/5">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white">3</div>
+<span class="font-label-lg text-label-lg">Apex_Pred</span>
+</div>
+<span class="text-on-surface-variant">3.5 KDA</span>
+</div>
+</div>
+<button class="mt-auto py-sm text-primary font-label-sm text-label-sm hover:underline flex items-center gap-xs">
+                        View Full Stats <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 px-base shadow-[0_-4px_20px_rgba(0,0,0,0.5)] md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(73,247,226,0.6)] active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<span class="font-label-sm text-label-sm">Leagues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Comm</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Player</span>
+</a>
+</nav>
+<!-- Interactive Layer: Ambient Particles -->
+<div class="fixed inset-0 pointer-events-none -z-20 overflow-hidden">
+<div class="absolute inset-0" id="particle-container"></div>
+</div>
+<script>
+        // Simple ambient particle effect for "Command Center" feel
+        const container = document.getElementById('particle-container');
+        for(let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = Math.random() * 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = 'rgba(73, 247, 226, 0.2)';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.borderRadius = '50%';
+            particle.style.boxShadow = '0 0 10px rgba(73, 247, 226, 0.4)';
+            
+            const duration = 10 + Math.random() * 20;
+            particle.animate([
+                { transform: 'translate(0, 0)', opacity: 0 },
+                { opacity: 0.8, offset: 0.5 },
+                { transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * -300 - 50}px)`, opacity: 0 }
+            ], {
+                duration: duration * 1000,
+                iterations: Infinity,
+                easing: 'linear'
+            });
+            
+            container.appendChild(particle);
+        }
+
+        // Handle Horizontal Scroll visual indicator
+        const bracket = document.querySelector('.bracket-container');
+        bracket.addEventListener('scroll', () => {
+            const maxScroll = bracket.scrollWidth - bracket.clientWidth;
+            const scrollPercent = (bracket.scrollLeft / maxScroll) * 100;
+            // Can be used for custom progress bars or UI hints
+        });
+    </script>
+</body></html>

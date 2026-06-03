@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BATTLEMIND - Judge Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .judge-black {
+            background-color: #10131a; /* Using theme surface-dim for consistency */
+        }
+        .glow-cyan {
+            box-shadow: 0 0 15px rgba(73, 247, 226, 0.3);
+        }
+        .glow-red {
+            box-shadow: 0 0 15px rgba(255, 180, 171, 0.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #49f7e2;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(73, 247, 226, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#001d36",
+                      "on-primary-container": "#005a51",
+                      "on-primary-fixed-variant": "#005048",
+                      "on-primary-fixed": "#00201c",
+                      "surface-container-highest": "#32353c",
+                      "primary-fixed-dim": "#17deca",
+                      "error-container": "#93000a",
+                      "inverse-on-surface": "#2e3037",
+                      "on-surface": "#e1e2eb",
+                      "inverse-surface": "#e1e2eb",
+                      "primary-fixed": "#4ffbe6",
+                      "error": "#ffb4ab",
+                      "surface-container": "#1d2026",
+                      "surface-tint": "#17deca",
+                      "on-error": "#690005",
+                      "surface-dim": "#10131a",
+                      "surface-container-lowest": "#0b0e14",
+                      "on-secondary-container": "#cfa7ff",
+                      "background": "#10131a",
+                      "primary-container": "#03dac6",
+                      "primary": "#49f7e2",
+                      "outline": "#849490",
+                      "surface-container-low": "#191c22",
+                      "inverse-primary": "#006a60",
+                      "surface-variant": "#32353c",
+                      "on-primary": "#003731",
+                      "tertiary": "#cae0ff",
+                      "tertiary-container": "#97c6ff",
+                      "on-surface-variant": "#bacac6",
+                      "on-secondary-fixed-variant": "#5e289b",
+                      "surface-bright": "#363940",
+                      "on-secondary": "#460283",
+                      "secondary": "#dab9ff",
+                      "on-tertiary": "#003258",
+                      "on-secondary-fixed": "#2a0053",
+                      "secondary-fixed": "#eedbff",
+                      "tertiary-fixed": "#d1e4ff",
+                      "on-tertiary-fixed-variant": "#00497d",
+                      "surface": "#10131a",
+                      "secondary-fixed-dim": "#dab9ff",
+                      "secondary-container": "#602b9d",
+                      "surface-container-high": "#272a31",
+                      "tertiary-fixed-dim": "#9ecaff",
+                      "on-background": "#e1e2eb",
+                      "on-tertiary-container": "#00528c",
+                      "outline-variant": "#3b4a47"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "xs": "4px",
+                      "sm": "12px",
+                      "gutter": "16px",
+                      "xl": "32px",
+                      "container-margin": "20px",
+                      "lg": "24px",
+                      "md": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Sora"],
+                      "body-md": ["Inter"],
+                      "label-lg": ["Sora"],
+                      "headline-lg": ["Sora"],
+                      "label-sm": ["Inter"],
+                      "display-lg": ["Sora"],
+                      "headline-lg-mobile": ["Sora"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md selection:bg-primary/30">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-low/60 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-container-margin py-md">
+<div class="flex items-center gap-md">
+<span class="font-display-lg text-display-lg tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">BATTLEMIND</span>
+<div class="hidden md:flex gap-md ml-xl">
+<span class="text-primary font-label-lg uppercase tracking-widest px-md border-r border-white/10">Judge Mode</span>
+<span class="text-on-surface-variant font-label-lg uppercase tracking-widest">Session: #492-X</span>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-end mr-sm">
+<span class="text-primary font-bold text-label-lg">1,250 CR</span>
+<span class="text-on-surface-variant text-label-sm">Uptime: 02:45:12</span>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+<img alt="Judge Avatar" data-alt="A professional eSports tournament host wearing a sleek dark suit and high-tech headset, looking intensely at the camera in a futuristic command center environment. The lighting is dominated by deep cyan and magenta neon highlights against a dark, metallic background, creating a high-stakes competitive atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqKqPbeL4UWQm-50aDpeQjk69oobwKXI6CosuPTnyWw1YAZIoZQB4lrur5G8SvPW-SzM6XtDqGrX9-cOq8y0VRFIEGaRpFkrKAMm9WmlFI1_DU9qvnlFvADqERfR9Xuju7KDWAOXeOjIeH3QR-eoAOxKrRRLUtkWmHPENTPxIi7rpLlxbl0gAE-lfeXFm610W7DOeYS87HUsMRl_JZUCgx2k2yI52OEvccBRq4kkY2aIX4tYeSDzwaeEz-Opex6fSTJWGcxD4roWoH"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-container-margin max-w-7xl mx-auto min-h-screen">
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Question Stream (Glass Card) -->
+<section class="lg:col-span-8 flex flex-col gap-lg">
+<div class="flex items-center justify-between mb-sm">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined">quiz</span> LIVE STREAM
+                    </h2>
+<span class="px-md py-xs rounded-full bg-primary/10 text-primary border border-primary/30 text-label-sm animate-pulse">Awaiting Input...</span>
+</div>
+<div class="glass-card rounded-xl p-lg relative overflow-hidden">
+<!-- Progress Bar (Lead point glow) -->
+<div class="absolute top-0 left-0 w-full h-1 bg-white/5">
+<div class="h-full bg-gradient-to-r from-primary to-transparent w-3/4 relative" id="timer-progress">
+<div class="absolute right-0 top-0 w-2 h-full bg-primary shadow-[0_0_10px_#49f7e2]"></div>
+</div>
+</div>
+<div class="mt-md">
+<div class="flex justify-between text-on-surface-variant mb-md">
+<span class="text-label-sm font-label-lg uppercase">Incoming Question</span>
+<span class="text-label-sm font-label-lg">ID: 8821</span>
+</div>
+<p class="font-headline-md text-headline-md mb-xl leading-relaxed">
+                            "What is the theoretical maximum throughput of a quantum-encrypted bridge using the 'Nova' protocol in deep space conditions?"
+                        </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mt-xl">
+<button class="bg-primary text-on-primary font-label-lg py-md rounded-lg flex items-center justify-center gap-sm glow-cyan active:scale-95 transition-all">
+<span class="material-symbols-outlined">check_circle</span> ACCEPTER QUESTION
+                            </button>
+<button class="bg-transparent border border-error text-error font-label-lg py-md rounded-lg flex items-center justify-center gap-sm hover:bg-error/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined">cancel</span> REFUSER QUESTION
+                            </button>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-xl p-lg border-t-4 border-t-tertiary">
+<div class="flex items-center gap-md mb-md">
+<div class="w-12 h-12 rounded-lg bg-tertiary/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div>
+<h3 class="font-headline-md text-label-lg text-tertiary">Current Respondent: Player_Xenon</h3>
+<p class="text-label-sm text-on-surface-variant">Accuracy: 94% | Speed: 1.2s</p>
+</div>
+</div>
+<div class="bg-black/20 p-md rounded-lg border border-white/5 mb-xl">
+<p class="italic text-body-lg text-on-surface">"The Nova protocol caps at 4.2 Terabytes per cycle, assuming gravitational interference is below 0.04%."</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<button class="bg-primary/20 text-primary border border-primary/50 font-label-lg py-md rounded-lg flex items-center justify-center gap-sm hover:bg-primary/30 active:scale-95 transition-all">
+<span class="material-symbols-outlined">done_all</span> ACCEPTER RÉPONSE
+                        </button>
+<button class="bg-error/20 text-error border border-error/50 font-label-lg py-md rounded-lg flex items-center justify-center gap-sm hover:bg-error/30 active:scale-95 transition-all">
+<span class="material-symbols-outlined">close</span> REFUSER RÉPONSE
+                        </button>
+</div>
+</div>
+</section>
+<!-- Control Panel (Sidebar) -->
+<aside class="lg:col-span-4 flex flex-col gap-xl">
+<div class="glass-card rounded-xl p-lg flex flex-col gap-lg">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined">settings_input_component</span> CONTROLS
+                    </h2>
+<!-- Time Management Slider -->
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<label class="text-label-lg font-label-lg text-on-surface-variant uppercase">Response Window</label>
+<span class="text-primary font-headline-md" id="time-val">15s</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary" id="time-slider" max="60" min="5" type="range" value="15"/>
+<div class="flex justify-between text-label-sm text-on-surface-variant">
+<span>5s</span>
+<span>60s</span>
+</div>
+</div>
+<!-- Room Status -->
+<div class="space-y-sm">
+<label class="text-label-lg font-label-lg text-on-surface-variant uppercase">Room Integrity</label>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-full h-full bg-gradient-to-r from-primary to-secondary"></div>
+</div>
+<div class="flex justify-between text-label-sm text-primary">
+<span>Stable</span>
+<span>99.9%</span>
+</div>
+</div>
+<!-- Macro Actions -->
+<div class="flex flex-col gap-md pt-md border-t border-white/10">
+<button class="w-full py-sm bg-surface-container-high text-on-surface rounded-lg font-label-lg hover:bg-surface-variant transition-colors flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">pause</span> PAUSE SESSION
+                        </button>
+<button class="w-full py-sm bg-error/10 text-error border border-error/20 rounded-lg font-label-lg hover:bg-error/20 transition-colors flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">dangerous</span> FORCE DISCONNECT
+                        </button>
+</div>
+</div>
+<!-- Leaderboard Mini -->
+<div class="glass-card rounded-xl p-lg">
+<h3 class="font-headline-md text-label-lg text-primary uppercase mb-lg">Live Ranking</h3>
+<div class="space-y-md">
+<div class="flex items-center justify-between p-sm bg-white/5 rounded-lg">
+<span class="flex items-center gap-sm">
+<span class="text-primary font-bold">1</span>
+<span>Player_Xenon</span>
+</span>
+<span class="text-primary">2,450</span>
+</div>
+<div class="flex items-center justify-between p-sm border border-white/5 rounded-lg opacity-60">
+<span class="flex items-center gap-sm">
+<span class="text-on-surface-variant">2</span>
+<span>Cyber_Ghost</span>
+</span>
+<span class="text-on-surface-variant">1,920</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Navigation Shell (Bottom) -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 px-base shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-all cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-all cursor-pointer">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-sm text-label-sm">Leagues</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-all cursor-pointer">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Comm</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(73,247,226,0.6)] active:scale-110 transition-all duration-300 ease-out cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">Player</span>
+</div>
+</nav>
+<script>
+        // Interactive Slider Logic
+        const slider = document.getElementById('time-slider');
+        const valDisplay = document.getElementById('time-val');
+        const progressBar = document.getElementById('timer-progress');
+
+        slider.oninput = function() {
+            valDisplay.innerHTML = this.value + "s";
+            // Visual feedback on progress bar speed could go here
+        };
+
+        // Micro-interaction: Progress bar simulation
+        let width = 75;
+        setInterval(() => {
+            width = width <= 0 ? 100 : width - 0.2;
+            progressBar.style.width = width + '%';
+        }, 50);
+
+        // Add glow effects to buttons on click
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.95)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

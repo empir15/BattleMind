@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>BATTLEMIND - Créer une Salle</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-primary {
+            box-shadow: 0 0 15px rgba(73, 247, 226, 0.3);
+        }
+        .glow-text-primary {
+            text-shadow: 0 0 10px rgba(73, 247, 226, 0.5);
+        }
+        input:focus {
+            box-shadow: 0 4px 12px -2px rgba(73, 247, 226, 0.2);
+            border-bottom-color: #49f7e2 !important;
+        }
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #49f7e2;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(73, 247, 226, 0.8);
+        }
+        .bg-mesh {
+            background-color: #10131a;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(73, 247, 226, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(96, 43, 157, 0.15) 0px, transparent 50%);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#001d36",
+                    "on-primary-container": "#005a51",
+                    "on-primary-fixed-variant": "#005048",
+                    "on-primary-fixed": "#00201c",
+                    "surface-container-highest": "#32353c",
+                    "primary-fixed-dim": "#17deca",
+                    "error-container": "#93000a",
+                    "inverse-on-surface": "#2e3037",
+                    "on-surface": "#e1e2eb",
+                    "inverse-surface": "#e1e2eb",
+                    "primary-fixed": "#4ffbe6",
+                    "error": "#ffb4ab",
+                    "surface-container": "#1d2026",
+                    "surface-tint": "#17deca",
+                    "on-error": "#690005",
+                    "surface-dim": "#10131a",
+                    "surface-container-lowest": "#0b0e14",
+                    "on-secondary-container": "#cfa7ff",
+                    "background": "#10131a",
+                    "primary-container": "#03dac6",
+                    "primary": "#49f7e2",
+                    "outline": "#849490",
+                    "surface-container-low": "#191c22",
+                    "inverse-primary": "#006a60",
+                    "surface-variant": "#32353c",
+                    "on-primary": "#003731",
+                    "tertiary": "#cae0ff",
+                    "tertiary-container": "#97c6ff",
+                    "on-surface-variant": "#bacac6",
+                    "on-secondary-fixed-variant": "#5e289b",
+                    "surface-bright": "#363940",
+                    "on-secondary": "#460283",
+                    "secondary": "#dab9ff",
+                    "on-tertiary": "#003258",
+                    "on-secondary-fixed": "#2a0053",
+                    "secondary-fixed": "#eedbff",
+                    "tertiary-fixed": "#d1e4ff",
+                    "on-tertiary-fixed-variant": "#00497d",
+                    "surface": "#10131a",
+                    "secondary-fixed-dim": "#dab9ff",
+                    "secondary-container": "#602b9d",
+                    "surface-container-high": "#272a31",
+                    "tertiary-fixed-dim": "#9ecaff",
+                    "on-background": "#e1e2eb",
+                    "on-tertiary-container": "#00528c",
+                    "outline-variant": "#3b4a47"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "gutter": "16px",
+                    "xl": "32px",
+                    "container-margin": "20px",
+                    "lg": "24px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Sora"],
+                    "body-md": ["Inter"],
+                    "label-lg": ["Sora"],
+                    "headline-lg": ["Sora"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Sora"],
+                    "headline-lg-mobile": ["Sora"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-mesh min-h-screen text-on-surface font-body-md overflow-x-hidden">
+<!-- Top Navigation Header -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-low/60 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-container-margin py-md">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 transition-transform" onclick="window.history.back()">arrow_back</button>
+<h1 class="font-display-lg text-[24px] tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">BATTLEMIND</h1>
+</div>
+<div class="flex items-center gap-base px-sm py-xs glass-card rounded-full">
+<span class="font-label-lg text-primary">1,250 CR</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="A futuristic 3D avatar of an eSports player wearing sleek black and cyan tactical gear, set against a dark, tech-inspired background with subtle blue glowing accents. The lighting is dramatic and moody, emphasizing a high-stakes competitive atmosphere with professional studio-grade render quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfBaZf5qF8iifa5jBNRJJMy1ixO8K2fSvUrAWRRN6f4MT84bThPUerY_m02B3VCLbExxhDTNsFOsR4U4FCItJOQSrBUkijBrmzX0qYijUWK29x3LmqLSY-hgreIkoaXb5hfTX5bQQvbHsNc-7qzAbjxBs5MNB8AARLy9kNMuMxbsbDmi3IAVbK9gJyBNtxa1dpb8RxQ02nSm01hsfcJyRpCBQA9gIMQLeJkmTYDThp1pMRYRKjf4NnYE4V1CQpRU1-b9nEVGF01ZdB"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-container-margin max-w-2xl mx-auto flex flex-col gap-xl">
+<!-- Hero Section / Title -->
+<section class="flex flex-col gap-xs">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary glow-text-primary">Nouvelle Salle</h2>
+<p class="text-on-surface-variant font-body-md">Configurez les paramètres de votre arène de combat.</p>
+</section>
+<!-- Room Code Display (Asymmetric Highlight) -->
+<section class="glass-card rounded-xl p-lg flex flex-col md:flex-row items-center justify-between gap-md relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[60px] rounded-full -mr-16 -mt-16"></div>
+<div class="flex flex-col gap-xs z-10">
+<span class="text-label-sm uppercase tracking-widest text-on-surface-variant opacity-70">Code d'accès unique</span>
+<div class="flex items-center gap-sm">
+<span class="font-display-lg text-[32px] md:text-[40px] tracking-widest text-primary glow-text-primary" id="roomCode">#BATTLE-2024</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" onclick="copyCode()">content_copy</button>
+</div>
+</div>
+<div class="flex items-center gap-xs px-md py-sm glass-card border-primary/20 rounded-lg z-10">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-lg text-on-surface">Match Public</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">expand_more</span>
+</div>
+</section>
+<!-- Form Fields -->
+<section class="flex flex-col gap-lg">
+<!-- Room Name Input -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-lg text-on-surface ml-1">Nom de la salle</label>
+<div class="relative group">
+<input class="w-full bg-black/20 border-0 border-b-2 border-white/10 text-on-surface font-body-md py-md px-base rounded-t-lg focus:ring-0 transition-all placeholder:text-on-surface-variant/40" placeholder="Entrez le nom de l'arène..." type="text"/>
+<div class="absolute bottom-0 left-0 h-[2px] w-0 bg-primary group-focus-within:w-full transition-all duration-300"></div>
+</div>
+</div>
+<!-- Player Count Slider -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-end ml-1">
+<label class="font-label-lg text-on-surface">Nombre maximum de joueurs</label>
+<span class="font-headline-md text-primary glow-text-primary" id="playerCountVal">8</span>
+</div>
+<div class="glass-card p-lg rounded-xl flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary active:scale-90 transition-all" onclick="updatePlayerCount(-1)">remove_circle</button>
+<input class="slider-thumb flex-grow appearance-none h-1.5 bg-white/10 rounded-full cursor-pointer" id="playerSlider" max="16" min="2" oninput="document.getElementById('playerCountVal').innerText = this.value" step="1" type="range" value="8"/>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary active:scale-90 transition-all" onclick="updatePlayerCount(1)">add_circle</button>
+</div>
+<div class="flex justify-between px-1">
+<span class="text-label-sm text-on-surface-variant/40">Min: 2</span>
+<span class="text-label-sm text-on-surface-variant/40">Max: 16</span>
+</div>
+</div>
+<!-- Game Mode Options (Bento Style Chips) -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-lg text-on-surface ml-1">Mode de jeu</label>
+<div class="grid grid-cols-2 gap-sm">
+<button class="glass-card p-md rounded-xl border-primary/40 bg-primary/5 flex flex-col items-start gap-xs text-left group hover:bg-primary/10 transition-colors ring-1 ring-primary/50">
+<span class="material-symbols-outlined text-primary">groups</span>
+<span class="font-label-lg">Combat en équipe</span>
+<span class="text-[10px] text-on-surface-variant/60 uppercase">Défaut</span>
+</button>
+<button class="glass-card p-md rounded-xl border-white/5 flex flex-col items-start gap-xs text-left group hover:border-white/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">person</span>
+<span class="font-label-lg text-on-surface-variant group-hover:text-on-surface transition-colors">Chacun pour soi</span>
+<span class="text-[10px] text-on-surface-variant/40 uppercase">Locked</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Start Button -->
+<section class="mt-xl">
+<button class="w-full bg-primary py-lg rounded-xl flex items-center justify-center gap-md active:scale-95 transition-all glow-primary group">
+<span class="font-headline-md text-on-primary tracking-tight">Démarrer le Lobby</span>
+<span class="material-symbols-outlined text-on-primary group-hover:translate-x-1 transition-transform">bolt</span>
+</button>
+<p class="text-center text-label-sm text-on-surface-variant mt-md">Une fois lancée, la salle sera visible dans la liste des serveurs.</p>
+</section>
+</main>
+<!-- Bottom Navigation Shell (Consistent with Shared Components) -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 px-base shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-sm text-label-sm">Leagues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Comm</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Player</span>
+</a>
+</nav>
+<!-- Atmospheric Micro-interactions & Script -->
+<script>
+        function updatePlayerCount(delta) {
+            const slider = document.getElementById('playerSlider');
+            let newVal = parseInt(slider.value) + delta;
+            if (newVal >= slider.min && newVal <= slider.max) {
+                slider.value = newVal;
+                document.getElementById('playerCountVal').innerText = newVal;
+            }
+        }
+
+        function copyCode() {
+            const code = document.getElementById('roomCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copié : ' + code);
+            });
+        }
+
+        // Simple parallax effect for glass cards on mouse move (Desktop Only)
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                const cards = document.querySelectorAll('.glass-card');
+                const x = (e.clientX - window.innerWidth / 2) / 100;
+                const y = (e.clientY - window.innerHeight / 2) / 100;
+                
+                cards.forEach(card => {
+                    card.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+        }
+    </script>
+</body></html>

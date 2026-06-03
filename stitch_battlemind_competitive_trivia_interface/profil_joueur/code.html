@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#005a51",
+                        "on-primary-fixed-variant": "#005048",
+                        "on-primary-fixed": "#00201c",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed-dim": "#17deca",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2e3037",
+                        "on-surface": "#e1e2eb",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#4ffbe6",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1d2026",
+                        "surface-tint": "#17deca",
+                        "on-error": "#690005",
+                        "surface-dim": "#10131a",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#cfa7ff",
+                        "background": "#10131a",
+                        "primary-container": "#03dac6",
+                        "primary": "#49f7e2",
+                        "outline": "#849490",
+                        "surface-container-low": "#191c22",
+                        "inverse-primary": "#006a60",
+                        "surface-variant": "#32353c",
+                        "on-primary": "#003731",
+                        "tertiary": "#cae0ff",
+                        "tertiary-container": "#97c6ff",
+                        "on-surface-variant": "#bacac6",
+                        "on-secondary-fixed-variant": "#5e289b",
+                        "surface-bright": "#363940",
+                        "on-secondary": "#460283",
+                        "secondary": "#dab9ff",
+                        "on-tertiary": "#003258",
+                        "on-secondary-fixed": "#2a0053",
+                        "secondary-fixed": "#eedbff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "surface": "#10131a",
+                        "secondary-fixed-dim": "#dab9ff",
+                        "secondary-container": "#602b9d",
+                        "surface-container-high": "#272a31",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-background": "#e1e2eb",
+                        "on-tertiary-container": "#00528c",
+                        "outline-variant": "#3b4a47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 100%);
+        }
+        .neon-glow-primary {
+            filter: drop-shadow(0 0 8px rgba(73, 247, 226, 0.4));
+        }
+        .progress-glow {
+            box-shadow: 0 0 10px rgba(73, 247, 226, 0.6);
+        }
+        body {
+            background-color: #0b0e14;
+            color: #e1e2eb;
+            overflow-x: hidden;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md select-none">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-low/60 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-container-margin py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full border border-primary/30 p-0.5 overflow-hidden active:scale-95 transition-transform">
+<img alt="User Profile" class="w-full h-full object-cover rounded-full" data-alt="Close-up portrait of a futuristic gamer with neon cybernetic facial markings and sleek chrome headgear. The lighting is dominated by high-contrast cyan and deep black tones, creating a high-stakes competitive atmosphere. The background is a blurred digital cockpit with holographic interfaces, maintaining a futuristic glassmorphism aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQc3Su_ZoaCVpBYUlqzRDP4bXSXi7DdAoGEPObDDhVtvH3lKnwG6YBXHm-0JpX1w6KRp7IdokAENRZIu0CZoSr10I7ReAqE3Gav92XrhSAconumEwbM2Pk8T3cSZnhxeC9AlMnvnlQ2SF12Dl757zraZnRyiNmJa5WGdHz8pJ1s1F-K8NveWqndnxOCT-eoMhY9U7CqdwhzqZA2VDq_gvQSD3MDtb_OD6EBo5GFWWZ1fnUFhdscpUOKrFEwRMpsVu2XseYlkqKZu-v"/>
+</div>
+<span class="font-display-lg text-[24px] tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">BATTLEMIND</span>
+</div>
+<div class="flex items-center gap-xs bg-surface-container-high px-sm py-xs rounded-full border border-white/5 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary text-[18px]">toll</span>
+<span class="font-label-lg text-label-lg text-primary">1,250 CR</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-container-margin max-w-2xl mx-auto">
+<!-- Hero Profile Section -->
+<section class="relative mb-xl">
+<div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 blur-[80px] rounded-full"></div>
+<div class="flex flex-col items-center">
+<div class="relative mb-lg">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-primary p-1 neon-glow-primary">
+<img alt="Large Avatar" class="w-full h-full object-cover rounded-full" data-alt="Highly detailed portrait of a competitive eSports player wearing a futuristic black and cyan jersey. The player has sharp features and intensity in their eyes, illuminated by the glow of a nearby digital screen. The background consists of architectural glass panels and soft cyan light leaks, emphasizing a professional and high-tech digital environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfbRjutQ9vFhI_r-dCPDQrpohSUAYejXwpVECE4Y8es0y-3zi7D5xC7ohtjlnRJ6GzmEF-uSl_XWZMTsEvmJEDW1IhLBI6o8Fm9mMCU_gNIvZHJipVZo7cORELsyVjeZcr7LcURo-p2sj04G1mHAslzDrU1uJm_O3io3o8Vi6Aoh4n_-6PItq8zqXk9b2Z2lo4zbpSYUTZbj-sTu5TiOJ09U1svChpjGW-mKO33k7WMiR3bya-XDLlg7IWv6yxHotoW-qw1GhGT1fT"/>
+</div>
+<div class="absolute bottom-1 right-1 bg-primary text-on-primary px-sm py-xs rounded-full font-label-lg text-label-lg font-bold shadow-lg">
+                        LVL 42
+                    </div>
+</div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white mb-xs tracking-tight">KRYPTON_STRIKER</h1>
+<p class="font-label-lg text-label-lg text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">verified</span> Pro League Challenger
+                </p>
+</div>
+</section>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-3 gap-md mb-xl">
+<div class="glass-card p-md rounded-xl flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-on-surface-variant mb-xs">videogame_asset</span>
+<span class="font-headline-md text-headline-md text-white">482</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Parties jouées</span>
+</div>
+<div class="glass-card p-md rounded-xl flex flex-col items-center justify-center text-center border-primary/20 bg-primary/5">
+<span class="material-symbols-outlined text-primary mb-xs">workspace_premium</span>
+<span class="font-headline-md text-headline-md text-primary">312</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Victoires</span>
+</div>
+<div class="glass-card p-md rounded-xl flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-error mb-xs">close</span>
+<span class="font-headline-md text-headline-md text-white">170</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Défaites</span>
+</div>
+</section>
+<!-- Rank & Progress -->
+<section class="glass-card p-lg rounded-xl mb-xl">
+<div class="flex justify-between items-end mb-md">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest block mb-xs">Rang Actuel</span>
+<h2 class="font-headline-md text-headline-md text-white flex items-center gap-md">
+                        Diamond II
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</h2>
+</div>
+<div class="text-right">
+<span class="font-label-lg text-label-lg text-primary">2,840 / 3,000 RP</span>
+</div>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary w-[85%] relative rounded-full">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full progress-glow"></div>
+</div>
+</div>
+</section>
+<!-- History Section -->
+<section>
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-white">Historique Récent</h3>
+<button class="text-primary font-label-lg text-label-lg hover:opacity-80 transition-opacity">Voir tout</button>
+</div>
+<div class="space-y-md">
+<!-- Match Card 1 -->
+<div class="glass-card p-md rounded-xl flex items-center gap-md active:scale-[0.98] transition-transform cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-white">Victoire • Zone de Combat</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Il y a 2h</span>
+</div>
+<div class="flex items-center gap-sm mt-xs">
+<span class="text-primary font-label-sm text-label-sm">+25 RP</span>
+<span class="w-1 h-1 bg-white/20 rounded-full"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">K/D: 2.4</span>
+</div>
+</div>
+</div>
+<!-- Match Card 2 -->
+<div class="glass-card p-md rounded-xl flex items-center gap-md active:scale-[0.98] transition-transform cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-error/10 flex items-center justify-center border border-error/20 shrink-0">
+<span class="material-symbols-outlined text-error">cancel</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-white">Défaite • Arène Alpha</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Il y a 5h</span>
+</div>
+<div class="flex items-center gap-sm mt-xs">
+<span class="text-error font-label-sm text-label-sm">-12 RP</span>
+<span class="w-1 h-1 bg-white/20 rounded-full"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">K/D: 0.8</span>
+</div>
+</div>
+</div>
+<!-- Match Card 3 -->
+<div class="glass-card p-md rounded-xl flex items-center gap-md active:scale-[0.98] transition-transform cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-white">Victoire • Néo-Tokyo</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hier</span>
+</div>
+<div class="flex items-center gap-sm mt-xs">
+<span class="text-primary font-label-sm text-label-sm">+42 RP</span>
+<span class="w-1 h-1 bg-white/20 rounded-full"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">K/D: 3.1</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 px-base shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-sm text-label-sm">Leagues</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Comm</span>
+</button>
+<!-- ACTIVE TAB: Player -->
+<button class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(73,247,226,0.6)] active:scale-110 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">Player</span>
+</button>
+</nav>
+<!-- Subtle interactive particle effect background (JS) -->
+<canvas class="fixed inset-0 -z-10 pointer-events-none opacity-40" id="atmosphere"></canvas>
+<script>
+        const canvas = document.getElementById('atmosphere');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+
+        function init() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            particles = [];
+            for (let i = 0; i < 30; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.5,
+                    speedY: (Math.random() - 0.5) * 0.5,
+                    opacity: Math.random() * 0.5
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                ctx.fillStyle = `rgba(73, 247, 226, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        animate();
+    </script>
+</body></html>

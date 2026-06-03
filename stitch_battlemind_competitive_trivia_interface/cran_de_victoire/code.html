@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#005a51",
+                        "on-primary-fixed-variant": "#005048",
+                        "on-primary-fixed": "#00201c",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed-dim": "#17deca",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2e3037",
+                        "on-surface": "#e1e2eb",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#4ffbe6",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1d2026",
+                        "surface-tint": "#17deca",
+                        "on-error": "#690005",
+                        "surface-dim": "#10131a",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#cfa7ff",
+                        "background": "#10131a",
+                        "primary-container": "#03dac6",
+                        "primary": "#49f7e2",
+                        "outline": "#849490",
+                        "surface-container-low": "#191c22",
+                        "inverse-primary": "#006a60",
+                        "surface-variant": "#32353c",
+                        "on-primary": "#003731",
+                        "tertiary": "#cae0ff",
+                        "tertiary-container": "#97c6ff",
+                        "on-surface-variant": "#bacac6",
+                        "on-secondary-fixed-variant": "#5e289b",
+                        "surface-bright": "#363940",
+                        "on-secondary": "#460283",
+                        "secondary": "#dab9ff",
+                        "on-tertiary": "#003258",
+                        "on-secondary-fixed": "#2a0053",
+                        "secondary-fixed": "#eedbff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "surface": "#10131a",
+                        "secondary-fixed-dim": "#dab9ff",
+                        "secondary-container": "#602b9d",
+                        "surface-container-high": "#272a31",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-background": "#e1e2eb",
+                        "on-tertiary-container": "#00528c",
+                        "outline-variant": "#3b4a47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+        .victory-glow {
+            text-shadow: 0 0 20px rgba(73, 247, 226, 0.6), 0 0 40px rgba(73, 247, 226, 0.3);
+        }
+        .podium-step {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #49f7e2;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        canvas#celebration-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 40;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md overflow-x-hidden min-h-screen">
+<!-- Celebration Particles -->
+<canvas id="celebration-canvas"></canvas>
+<!-- Header (Suppressed active state for transactional/focused screen) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-container-margin py-md bg-surface-container-low/60 backdrop-blur-xl border-b border-white/10 shadow-none">
+<h1 class="font-display-lg text-headline-md tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">BATTLEMIND</h1>
+<div class="flex items-center gap-md">
+<span class="font-label-lg text-label-lg text-primary">1,250 CR</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/30">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A futuristic profile avatar of a high-tech eSports player, wearing a sleek carbon fiber helmet with glowing cyan visors. The lighting is dramatic, high-contrast neon against deep black shadows. The artistic style is crisp, digital 3D rendering with sharp edges and premium metallic textures, fitting a competitive gaming aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5zzA3jgWfkR0zQ41dnhpw1LYl-T2f516FLz23vsADpZgWJPwGcLbrtxTb8qZpywxMA9iKhbWGNuZcbJgfKvqfpY1FgbrsbZN3eZ2VmxHHeFI3w2KZoJSs6CYx_8J2hkRkqdJmvbWRbVm57gZwE5sfqjcK-K8yUaso573TNmnq1vo5x735WyvEMKVA_QFnf7IXQxvDG_-GPLbWn6F2fZLYp9WhsWtAxBFxJjWuSOkzbz2PyX5vyioBv_31UKeicF-opeNxoYE2dUlk"/>
+</div>
+</div>
+</header>
+<main class="relative pt-32 pb-40 px-container-margin flex flex-col items-center justify-center min-h-screen z-10">
+<!-- Victory Title -->
+<div class="text-center mb-xl">
+<span class="font-label-lg text-label-lg text-primary tracking-[0.2em] uppercase mb-xs block">Tournament Final</span>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-primary victory-glow uppercase animate-pulse">CHAMPION</h2>
+<div class="mt-md font-headline-md text-headline-md text-on-surface tracking-wide drop-shadow-md">
+                ALEX_STRIKE
+            </div>
+</div>
+<!-- Podium Section -->
+<div class="w-full max-w-4xl grid grid-cols-3 items-end gap-sm md:gap-lg mb-xl relative">
+<!-- 2nd Place -->
+<div class="flex flex-col items-center">
+<div class="relative mb-md animate-float" style="animation-delay: 0.5s;">
+<div class="w-16 h-16 md:w-24 md:w-24 rounded-full overflow-hidden border-2 border-secondary/50 p-1">
+<img alt="Runner up" class="w-full h-full object-cover rounded-full" data-alt="A portrait of a focused eSports competitor with holographic interfaces reflected in their glasses. The lighting features soft purple and cyan ambient glows. The style is cinematic, mimicking a high-end broadcast intro from a professional gaming league, with a shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6mxn0XBBCeLaqGvdS456g7UABUIFDvT9Tz8R-vuvQWHwse04N04DeJffdmNYEkXUGZF0BSJH7McPY35m_GRr7O6nGbqhLi2CQBIQIrAWfHwyVckh_pdEuiNBv9BhOFxK2xPj0P7guvZh44DKZ7iC2aCW1wPOtnynlkfoW3LKF6XRbAm8R7IMEsN_RiuHbwEf-_ND0PdOT8CCLI0bATtkB4D45vxSod_d3Rm6Wk40XDAQKlqDrXoQYsCub7tyH1nQWrwd1Qxr11QBQ"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-surface-container-high w-8 h-8 rounded-full flex items-center justify-center border border-white/10">
+<span class="text-secondary font-bold">2</span>
+</div>
+</div>
+<div class="glass-card w-full h-24 md:h-32 flex flex-col items-center justify-center rounded-t-xl">
+<span class="font-label-sm text-label-sm text-on-surface-variant">CYBER_PUNK</span>
+<span class="font-headline-md text-label-lg text-secondary">2,450 pts</span>
+</div>
+</div>
+<!-- 1st Place -->
+<div class="flex flex-col items-center z-20">
+<div class="relative mb-md animate-float">
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-primary p-1 shadow-[0_0_30px_rgba(73,247,226,0.4)]">
+<img alt="Champion" class="w-full h-full object-cover rounded-full" data-alt="A heroic portrait of a tournament-winning gamer, wearing a team jersey with glowing cyan fiber-optic accents. They are silhouetted against a burst of digital light and geometric shards. The atmosphere is celebratory and triumphant, with high-fidelity detail and a vibrant neon color palette of cyan and deep indigo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3q8CbNBi4AU3rQmW9RBUL0av4Osoi6TsMH1NMSm9gSPVlRUD_z-h8ksfwEJUOGr-jljahnxN0-a5KUvWN0AiXU955j5cO5B31a_lj0jp_yADIqHU7Tu-w6PMCZk__O7PYUdRDPN_TkHUzJEB7ChPKVk5n-XmRMY9hzp-i6b1hOBD_KBOjxpmi4QkiXtqR7PKzu5rV0o5JV2zUblrtBCdzzP4A_y5e5h33kFLNxACjQRNWkvDQ4snIqpNN1lYWnezj-eT1VFqf2p8z"/>
+</div>
+<div class="absolute -top-4 left-1/2 -translate-x-1/2">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+                        1
+                    </div>
+</div>
+<div class="glass-card w-full h-40 md:h-52 flex flex-col items-center justify-center rounded-t-xl border-primary/30 relative">
+<div class="absolute inset-0 bg-primary/5 rounded-t-xl"></div>
+<span class="font-label-lg text-label-lg text-primary font-bold">ALEX_STRIKE</span>
+<span class="font-headline-md text-headline-md text-primary">3,120 pts</span>
+</div>
+</div>
+<!-- 3rd Place -->
+<div class="flex flex-col items-center">
+<div class="relative mb-md animate-float" style="animation-delay: 1.2s;">
+<div class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-tertiary/50 p-1">
+<img alt="Third Place" class="w-full h-full object-cover rounded-full" data-alt="A profile of a determined eSports player with a futuristic headset. Lighting is dominated by cool blue and soft orange rim lights. The aesthetic is modern and professional, suggesting a world-class athlete preparing for a high-stakes match in a digital arena." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-t2rsWsiEJNk01ZH6SiRMToxp-XVXPigTlwZgmkNaMX7JobDIwCBcMaiUCvcReMovibnYBy_Ky6-1vrdxA7mMKn1jMeHfiXatLcHBTMELwcD9pvn6mu89o63-5Ajgw_T1Y2weF-dDzW0JcrTHcplzV4zLaa79SoJIOpl4s6vEjuJzEdz49_PcP1U8Z2Cbw17GOGkR2skNfBABbifmUu6Q4cbfHPA9nH4F9cdnvXIptllI4uO-xI51h89LYCIodnrnOSFy7c3ZvZ6m"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-surface-container-high w-8 h-8 rounded-full flex items-center justify-center border border-white/10">
+<span class="text-tertiary font-bold">3</span>
+</div>
+</div>
+<div class="glass-card w-full h-16 md:h-24 flex flex-col items-center justify-center rounded-t-xl">
+<span class="font-label-sm text-label-sm text-on-surface-variant">NEO_ZEN</span>
+<span class="font-headline-md text-label-lg text-tertiary">1,890 pts</span>
+</div>
+</div>
+</div>
+<!-- Stats Bento Grid Section -->
+<div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="glass-card p-lg rounded-xl">
+<h3 class="font-label-lg text-label-lg text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">analytics</span> PERFORMANCE RECAP
+                </h3>
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Total Eliminations</span>
+<span class="font-headline-md text-headline-md text-primary">24</span>
+</div>
+<div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[85%] shadow-[0_0_8px_#49f7e2]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Accuracy</span>
+<span class="font-headline-md text-headline-md text-secondary">78%</span>
+</div>
+<div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[78%] shadow-[0_0_8px_#dab9ff]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Survival Time</span>
+<span class="font-headline-md text-headline-md text-tertiary">14:32</span>
+</div>
+</div>
+</div>
+<div class="glass-card p-lg rounded-xl flex flex-col justify-between">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">military_tech</span> REWARDS EARNED
+                    </h3>
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-black/20 p-md rounded-lg border border-white/5 flex flex-col items-center">
+<span class="material-symbols-outlined text-primary mb-xs" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+<span class="text-primary font-bold">+500 CR</span>
+</div>
+<div class="bg-black/20 p-md rounded-lg border border-white/5 flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary mb-xs" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="text-secondary font-bold">+1200 XP</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-md px-lg rounded-lg font-bold flex items-center justify-center gap-sm mt-lg hover:shadow-[0_0_15px_rgba(73,247,226,0.6)] active:scale-95 transition-all">
+<span class="material-symbols-outlined">replay</span>
+                    Rejouer
+                </button>
+</div>
+</div>
+</main>
+<!-- Navigation Shell (Using BottomNavBar as a guide but tailored for focused end-state) -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/80 backdrop-blur-2xl flex justify-around items-center h-20 px-base border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(73,247,226,0.6)] active:scale-110 transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all" href="#">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-sm text-label-sm">Leagues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Comm</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Player</span>
+</a>
+</nav>
+<script>
+        // Simple Particle System for Victory Celebration
+        const canvas = document.getElementById('celebration-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const colors = ['#49f7e2', '#dab9ff', '#cae0ff', '#ffffff'];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 10;
+                this.size = Math.random() * 4 + 2;
+                this.speedY = Math.random() * -5 - 2;
+                this.speedX = Math.random() * 4 - 2;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 10 - 5;
+                this.opacity = 1;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotationSpeed;
+                this.speedY += 0.05; // Gravity
+                this.opacity -= 0.005;
+
+                if (this.opacity <= 0) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        function createParticles() {
+            for (let i = 0; i < 60; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        createParticles();
+        animate();
+
+        // Button Micro-interaction
+        const replayBtn = document.querySelector('button');
+        replayBtn.addEventListener('click', () => {
+            replayBtn.classList.add('scale-95');
+            setTimeout(() => replayBtn.classList.remove('scale-95'), 150);
+            // Re-fire a burst of particles
+            for(let i=0; i<30; i++) {
+                let p = new Particle();
+                p.y = window.innerHeight * 0.7;
+                p.x = window.innerWidth / 2;
+                p.speedY = Math.random() * -10 - 5;
+                p.speedX = Math.random() * 10 - 5;
+                particles.push(p);
+            }
+        });
+    </script>
+</body></html>

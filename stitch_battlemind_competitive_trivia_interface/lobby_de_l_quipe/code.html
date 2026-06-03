@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>BattleMind | Lobby</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#005a51",
+                        "on-primary-fixed-variant": "#005048",
+                        "on-primary-fixed": "#00201c",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed-dim": "#17deca",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2e3037",
+                        "on-surface": "#e1e2eb",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#4ffbe6",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1d2026",
+                        "surface-tint": "#17deca",
+                        "on-error": "#690005",
+                        "surface-dim": "#10131a",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#cfa7ff",
+                        "background": "#10131a",
+                        "primary-container": "#03dac6",
+                        "primary": "#49f7e2",
+                        "outline": "#849490",
+                        "surface-container-low": "#191c22",
+                        "inverse-primary": "#006a60",
+                        "surface-variant": "#32353c",
+                        "on-primary": "#003731",
+                        "tertiary": "#cae0ff",
+                        "tertiary-container": "#97c6ff",
+                        "on-surface-variant": "#bacac6",
+                        "on-secondary-fixed-variant": "#5e289b",
+                        "surface-bright": "#363940",
+                        "on-secondary": "#460283",
+                        "secondary": "#dab9ff",
+                        "on-tertiary": "#003258",
+                        "on-secondary-fixed": "#2a0053",
+                        "secondary-fixed": "#eedbff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "surface": "#10131a",
+                        "secondary-fixed-dim": "#dab9ff",
+                        "secondary-container": "#602b9d",
+                        "surface-container-high": "#272a31",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-background": "#e1e2eb",
+                        "on-tertiary-container": "#00528c",
+                        "outline-variant": "#3b4a47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0b0e14;
+            color: #e1e2eb;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), transparent);
+        }
+        .primary-glow {
+            box-shadow: 0 0 15px rgba(73, 247, 226, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .team-blue { border-color: #2196F3; color: #2196F3; }
+        .team-red { border-color: #F44336; color: #F44336; }
+        .team-yellow { border-color: #FFC107; color: #FFC107; }
+        .team-white { border-color: #FFFFFF; color: #FFFFFF; }
+        
+        .active-blue { background-color: #2196F3; color: #000; box-shadow: 0 0 15px rgba(33, 150, 243, 0.5); }
+        .active-red { background-color: #F44336; color: #000; box-shadow: 0 0 15px rgba(244, 67, 54, 0.5); }
+        .active-yellow { background-color: #FFC107; color: #000; box-shadow: 0 0 15px rgba(255, 193, 7, 0.5); }
+        .active-white { background-color: #FFFFFF; color: #000; box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(73,247,226,0) 0%, rgba(73,247,226,0.05) 50%, rgba(73,247,226,0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-low/60 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-container-margin py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full border border-primary/50 overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A futuristic headshot of a high-tech gamer wearing neon-accented eyewear and a sleek tactical headset. The lighting is dominated by sharp cyan and magenta glows against a deep navy background, reflecting a professional eSports command center atmosphere with digital UI overlays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzHUbGpXg6vYpQYni_677bVu3bpEjaL4KE1gTaB8CY20yudmY6be89idpK2XUBMOO7syR0DozAZfkiIjSzxs7b6gQV0H8nc2uWucUavW38BwKk8yjYvpE776XIUYVcde4DJbQlVOWk9KF-KVfezAn-1lrfJ0DmNGL1bUFP3hW5r7M_gvTnfTs6BKPR2inKlz2VNRck-jTNKE7bnI8ezIGQjpDb4dXETVad9wZlwhuAPY9Mk4rJZ6aMF7Y7phDg3_4tX077I2RgvpfF"/>
+</div>
+<h1 class="font-display-lg text-headline-md tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">BATTLEMIND</h1>
+</div>
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary">toll</span>
+<span class="font-label-lg text-label-lg text-primary tracking-widest">1,250 CR</span>
+</div>
+</header>
+<!-- Background Atmospheric Elements -->
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="scanline"></div>
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/5 blur-[100px] rounded-full"></div>
+</div>
+<main class="pt-24 pb-32 px-container-margin relative z-10 max-w-7xl mx-auto">
+<!-- Hero Section: Judge's Command -->
+<section class="mb-xl">
+<div class="glass-card rounded-xl p-lg flex flex-col md:flex-row items-center gap-lg">
+<div class="relative">
+<div class="w-24 h-24 rounded-full border-2 border-primary p-1">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img alt="Judge Profile" class="w-full h-full object-cover" data-alt="A portrait of a sophisticated AI moderator or judge for a futuristic competition. The man has sharp features and wears a clean, tech-infused charcoal suit with integrated LED circuits glowing subtly in cyan. The background is a dark, high-contrast studio setting with soft bokeh of digital server racks." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxv3gt4whcRQpOAcxP7ITxkDMISYcaRKWvJLeLU0ZYMNafQTD3CGkmvW44v3LEwF02qYBVvvsBrjsir5w9sWyYVxNp5GAJbyoe2R0j4TqZhgzbbsJ3YvqSMwgu14g4d7bw7MTC8QyDGvwf85DZ0JoihMU4uzwwgVqQonDqSKv9wXjG-OzhaIxkdZ2j9qRiigUPMv6wCq3Y7ELbN-QKbJCNuUoLtl6Ab-fS_ddozOI8FSaRzZ9yb8qfQ3q0Mdj6QJM3IlaZ_muupK7L"/>
+</div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-on-primary px-2 py-0.5 rounded text-[10px] font-bold tracking-tighter">JUDGE</div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 uppercase tracking-widest mb-xs">Session Host</p>
+<h2 class="font-headline-md text-headline-md text-on-surface leading-none mb-base">Archon-7 Moderator</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Awaiting final team confirmation for the Sector-9 Neural Relay match. All captains must validate their rosters within the next 120 seconds.</p>
+</div>
+<div class="flex flex-col gap-xs min-w-[140px]">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-on-surface-variant/60">Ping</span>
+<span class="text-primary">14ms</span>
+</div>
+<div class="h-1 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[90%] shadow-[0_0_8px_rgba(73,247,226,1)]"></div>
+</div>
+<div class="flex justify-between items-center text-label-sm font-label-sm mt-xs">
+<span class="text-on-surface-variant/60">Status</span>
+<span class="text-primary animate-pulse">Lobby Open</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Layout: Bento Grid of Players and Teams -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Connected Players (Left Column) -->
+<div class="lg:col-span-8 space-y-gutter">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-base">
+<span class="material-symbols-outlined text-primary">groups</span>
+                        Connected Players
+                    </h3>
+<span class="bg-surface-container-high px-base py-xs rounded-full font-label-sm text-label-sm text-primary border border-primary/20">8 / 16 READY</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-base">
+<!-- Player Cards -->
+<div class="glass-card rounded-lg p-md flex items-center gap-md border-l-4 border-l-primary hover:bg-white/10 transition-all cursor-pointer group">
+<img alt="Player" class="w-12 h-12 rounded-lg object-cover border border-white/10" data-alt="A portrait of a female professional cyber-athlete with neon blue eyeliner and tactical wear. The lighting is high-contrast with dark shadows and vibrant blue light hitting the side of her face. Futuristic digital icons are subtly layered in the background to create a sense of deep technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwRLImvmtoJ2qQCwIfaxZczTclNs9VV4Q8ji5WI6F_wX6uNqMVp4mIBS3yWTELyYcW3rO53X7FAmUsgRxbJ1sa4uJo6NBq3CNhdrug4DNvXiQmNrOm0iP-CA_oFwQG60C08QLr17YFeBSH6DECbCMaryBMP5oBqRfjjIBbiotJ7imOtw7YVDFqnh2w5sWqitlZS8uRz0P7fTqrkVnpbSUyya7E59KiPwPVuuqeOF-EQ0fDZI52RhoNwb5BDSw1R_q7cnGEeEhaPxNA"/>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Valkyrie_Zero</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">Level 42 Striker</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-weight="fill">check_circle</span>
+</div>
+<div class="glass-card rounded-lg p-md flex items-center gap-md border-l-4 border-l-primary/30 hover:bg-white/10 transition-all cursor-pointer group">
+<img alt="Player" class="w-12 h-12 rounded-lg object-cover border border-white/10" data-alt="A male gamer portrait with heavy shadow play and a singular warm yellow light source. He has a determined expression and tech-wear clothing. The visual style is gritty yet polished, fitting for a competitive futuristic eSports lobby environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ-_VM4LYJumEifaRW5yKymFbxIwo7LKXPYrcTaNnAqeHbccV-ehslwdoWLZK5lgfvI_Bln-YgYU5YiUyhbqf2P-4u91RW9ajfftzvCTmogAv4IjilvLNWrBIf_sodUURfxwt1hqvHAJPLsw_FgXADwc6f8Ava9Uas8ujdRcN_WTkENMUDj6uRAH-ZoBnEHDuiWt-7CqdR14IBeTjqXoNBbXejDO3OOX3M7CvOVfNLV8sZXoM99In-yIofgHPeC4SYJQ03pdppGd58"/>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">KinetiX</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">Level 38 Tank</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-on-surface-variant/40"></div>
+</div>
+<div class="glass-card rounded-lg p-md flex items-center gap-md border-l-4 border-l-primary/30 hover:bg-white/10 transition-all cursor-pointer group">
+<img alt="Player" class="w-12 h-12 rounded-lg object-cover border border-white/10" data-alt="A high-contrast headshot of a female pilot-themed gamer. She wears a metallic flight suit and has glowing LED streaks on her cheek. The atmosphere is cold, cinematic, and focuses on a high-stakes competitive mood with deep blues and crisp highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASlZp2RlYr7Mqq4pwBfpYy7IOSyK8Gl9m_OHQeXXfIc_98cAQy_992w282CPdpwiExjl0C9hA0hNuO2ktXhhmRuwUw5z0crc55KMDhUugHUYPJE7hG8-Ym_c2lmJCzmzMU11julJ1fYZ7XS1Mafidaulu1GcqazPZEFrl3pPKy34xo5-c4bru3m4Lt3KZpeyaKt6K5q99lAeIEvxKz-K5Evh_hJBI9uzwrav8VTn7RMBSL1L48UMpSA0FVJbOf-XdkTsGIziKi0djH"/>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Luna_Pulse</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">Level 51 Support</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-on-surface-variant/40"></div>
+</div>
+<div class="glass-card rounded-lg p-md flex items-center gap-md border-l-4 border-l-primary hover:bg-white/10 transition-all cursor-pointer group">
+<img alt="Player" class="w-12 h-12 rounded-lg object-cover border border-white/10" data-alt="A professional gamer headshot featuring a male with cybernetic implants visible near the temple. Sharp white lighting creates a laboratory-clean aesthetic against a dark industrial background. The style is ultra-modern and tech-focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiHnsrjPVpAIFhIn1J_Zzt8y6OcK9veyNHK87ZMX0gHFxy1Wtch47nT3av023lIWt61iOxbK5OBRRpNyXy9v4cMKHf2hg11HvwZdJaDQZ2CRjE0iFAD64n5Y89S25j1LpKL3yieWbSOMIlqqE1SD8F7VdC2vbAw9yUmfKGV_jnAciu8yU5QHyLZGvMdatKw7GLeGjI2RNcbNiiRFGDPwIBLEtGPdbVZV632lqUwQUxL24qB3Dfh7vSYv9y87O-JuSbIERU-ZI5TMUV"/>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Shadow_Drift</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">Level 29 Assassin</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-weight="fill">check_circle</span>
+</div>
+<div class="glass-card rounded-lg p-md flex items-center gap-md border-l-4 border-l-primary hover:bg-white/10 transition-all cursor-pointer group">
+<img alt="Player" class="w-12 h-12 rounded-lg object-cover border border-white/10" data-alt="Close up of a female gamer profile with a futuristic visor. The visor displays a faint digital map in green light. The surrounding room is pitch black, making the glowing elements of her gear stand out intensely. High-fidelity glassmorphism style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBotgFMWGQjBwaGpHhGYK7VTbzCF5tWB75tkdNV3bxIqG4ALq8q_LqHLvlqMFUp5zJM8-ulPpROY9AGGZ6vBDxZavTgYfgtL6ImWI9CL9MVgjP7AYln5kKpuxi9jdKk2UIqdZtSgelc_msiBytjU-d9eVkVSi7E5JTKbZYD8N9T5ggqRgeTVOA8jyykDWKTcKLMcBJIr7TxbtSbfY9oFTw9izwSm44CeABPSCEWaDStEoVlqJwEXsQvxAUww2S1rWxau6-TL_tMc1An"/>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Nova_Core</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">Level 45 Engineer</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-weight="fill">check_circle</span>
+</div>
+<div class="glass-card rounded-lg p-md flex items-center gap-md border-l-4 border-l-primary/30 hover:bg-white/10 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center border border-white/5">
+<span class="material-symbols-outlined text-on-surface-variant/40">person_add</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface-variant/40 italic">Awaiting Player...</h4>
+</div>
+</div>
+</div>
+</div>
+<!-- Team Selection (Right Column) -->
+<div class="lg:col-span-4 space-y-gutter">
+<h3 class="font-headline-md text-headline-md text-on-surface">Select Team</h3>
+<div class="grid grid-cols-2 gap-base">
+<!-- Team Buttons -->
+<button class="team-blue border-2 rounded-xl p-lg flex flex-col items-center justify-center gap-xs hover:bg-[#2196F3]/10 transition-all duration-300 active:scale-95 group" id="team-blue">
+<span class="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform">shield</span>
+<span class="font-label-lg text-label-lg">BLUE</span>
+<span class="font-label-sm text-label-sm opacity-60">2/4 Slots</span>
+</button>
+<button class="team-red border-2 rounded-xl p-lg flex flex-col items-center justify-center gap-xs hover:bg-[#F44336]/10 transition-all duration-300 active:scale-95 group" id="team-red">
+<span class="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform">bolt</span>
+<span class="font-label-lg text-label-lg">RED</span>
+<span class="font-label-sm text-label-sm opacity-60">3/4 Slots</span>
+</button>
+<button class="team-yellow border-2 rounded-xl p-lg flex flex-col items-center justify-center gap-xs hover:bg-[#FFC107]/10 transition-all duration-300 active:scale-95 group" id="team-yellow">
+<span class="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform">rocket_launch</span>
+<span class="font-label-lg text-label-lg">YELLOW</span>
+<span class="font-label-sm text-label-sm opacity-60">1/4 Slots</span>
+</button>
+<button class="team-white border-2 rounded-xl p-lg flex flex-col items-center justify-center gap-xs hover:bg-[#FFFFFF]/10 transition-all duration-300 active:scale-95 group" id="team-white">
+<span class="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform">ac_unit</span>
+<span class="font-label-lg text-label-lg">WHITE</span>
+<span class="font-label-sm text-label-sm opacity-60">0/4 Slots</span>
+</button>
+</div>
+<!-- Captain Validation Section -->
+<div class="glass-card rounded-xl p-lg mt-xl space-y-md">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<h4 class="font-label-lg text-label-lg text-on-surface">CAPTAIN VALIDATION</h4>
+</div>
+<p class="font-body-md text-label-sm text-on-surface-variant/80">Confirm your team selection and lock the roster. This action is irreversible once the countdown begins.</p>
+<button class="w-full bg-primary text-on-primary py-md rounded-lg font-label-lg text-label-lg tracking-widest hover:brightness-110 transition-all active:scale-[0.98] primary-glow flex items-center justify-center gap-base">
+                        VALIDATE TEAM
+                        <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Footer -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 px-base shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(73,247,226,0.6)] active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-weight="fill">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-sm text-label-sm">Leagues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Comm</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 active:scale-110 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Player</span>
+</a>
+</nav>
+<script>
+        // Simple team selection interaction
+        const teamButtons = ['team-blue', 'team-red', 'team-yellow', 'team-white'];
+        teamButtons.forEach(id => {
+            document.getElementById(id).addEventListener('click', function() {
+                // Clear all active states
+                teamButtons.forEach(btnId => {
+                    const btn = document.getElementById(btnId);
+                    const color = btnId.split('-')[1];
+                    btn.classList.remove(`active-${color}`);
+                });
+                
+                // Set current active state
+                const activeColor = id.split('-')[1];
+                this.classList.add(`active-${activeColor}`);
+                
+                // Atmospheric feedback
+                console.log(`Team ${activeColor.toUpperCase()} selected`);
+            });
+        });
+
+        // Micro-interaction for player cards
+        document.querySelectorAll('.glass-card.cursor-pointer').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+    </script>
+</body></html>

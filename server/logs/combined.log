@@ -1,0 +1,18 @@
+[2026-06-03 20:27:54] INFO: Migrations SQLite appliquées
+[2026-06-03 20:27:54] INFO: Seed terminé — 100 questions insérées
+[2026-06-03 20:27:54] INFO: Base de données SQLite initialisée {"path":"C:\\Users\\teemm\\reacte_projets\\BattleMind\\server\\data\\battlemind.db"}
+[2026-06-03 20:27:54] INFO: ✅ BattleMind Server running successfully {"host":"0.0.0.0","port":3000}
+[2026-06-03 20:37:57] INFO: Migrations SQLite appliquées
+[2026-06-03 20:37:57] INFO: Seed ignoré — 100 questions déjà présentes
+[2026-06-03 20:37:57] INFO: Base de données SQLite initialisée {"path":"C:\\Users\\teemm\\reacte_projets\\BattleMind\\server\\data\\battlemind.db"}
+[2026-06-03 20:37:57] INFO: ✅ BattleMind Server running successfully {"host":"0.0.0.0","port":3000}
+[2026-06-03 20:45:22] INFO: Salle créée {"roomCode":"H8MYL5","judgeSocketId":"SX1Fueu-chkmXp2SAAAB","questionMode":"free"}
+[2026-06-03 20:45:22] INFO: Joueur ajouté à la salle {"roomCode":"H8MYL5","pseudo":"Empire","role":"judge"}
+[2026-06-03 20:45:22] INFO: Salle créée par le Juge {"roomCode":"H8MYL5","pseudo":"Empire","questionMode":"free"}
+[2026-06-03 20:45:32] INFO: Salle supprimée {"roomCode":"H8MYL5"}
+[2026-06-03 20:45:32] WARN: Juge déconnecté — partie terminée et salle supprimée {"roomCode":"H8MYL5","pseudo":"Empire"}
+[2026-06-03 20:45:58] INFO: Salle créée {"roomCode":"H2R4CK","judgeSocketId":"8ZwDac_HvI0bNNiPAAAD","questionMode":"free"}
+[2026-06-03 20:45:58] INFO: Joueur ajouté à la salle {"roomCode":"H2R4CK","pseudo":"Empire","role":"judge"}
+[2026-06-03 20:45:58] INFO: Salle créée par le Juge {"roomCode":"H2R4CK","pseudo":"Empire","questionMode":"free"}
+[2026-06-03 20:46:03] INFO: Salle supprimée {"roomCode":"H2R4CK"}
+[2026-06-03 20:46:03] WARN: Juge déconnecté — partie terminée et salle supprimée {"roomCode":"H2R4CK","pseudo":"Empire"}

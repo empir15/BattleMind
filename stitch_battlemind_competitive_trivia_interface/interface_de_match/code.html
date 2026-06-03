@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>BATTLEMIND - Live Match</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-glow-primary {
+            filter: drop-shadow(0 0 10px rgba(73, 247, 226, 0.5));
+        }
+        .neon-glow-secondary {
+            filter: drop-shadow(0 0 10px rgba(218, 185, 255, 0.5));
+        }
+        .progress-glow {
+            box-shadow: 0 0 12px rgba(73, 247, 226, 0.8);
+        }
+        @keyframes pulse-neon {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 15px rgba(73, 247, 226, 0.8)); }
+            50% { opacity: 0.8; filter: drop-shadow(0 0 5px rgba(73, 247, 226, 0.4)); }
+        }
+        .animate-neon {
+            animation: pulse-neon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#005a51",
+                        "on-primary-fixed-variant": "#005048",
+                        "on-primary-fixed": "#00201c",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed-dim": "#17deca",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2e3037",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#e1e2eb",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#4ffbe6",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1d2026",
+                        "surface-tint": "#17deca",
+                        "on-error": "#690005",
+                        "surface-dim": "#10131a",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#cfa7ff",
+                        "background": "#10131a",
+                        "primary-container": "#03dac6",
+                        "primary": "#49f7e2",
+                        "outline": "#849490",
+                        "surface-container-low": "#191c22",
+                        "inverse-primary": "#006a60",
+                        "surface-variant": "#32353c",
+                        "on-primary": "#003731",
+                        "tertiary": "#cae0ff",
+                        "tertiary-container": "#97c6ff",
+                        "on-surface-variant": "#bacac6",
+                        "on-secondary-fixed-variant": "#5e289b",
+                        "surface-bright": "#363940",
+                        "on-secondary": "#460283",
+                        "secondary": "#dab9ff",
+                        "on-tertiary": "#003258",
+                        "on-secondary-fixed": "#2a0053",
+                        "secondary-fixed": "#eedbff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "surface": "#10131a",
+                        "secondary-fixed-dim": "#dab9ff",
+                        "secondary-container": "#602b9d",
+                        "surface-container-high": "#272a31",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-background": "#e1e2eb",
+                        "on-tertiary-container": "#00528c",
+                        "outline-variant": "#3b4a47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen overflow-x-hidden selection:bg-primary selection:text-on-primary">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 border-b border-white/10 bg-surface-container-low/60 backdrop-blur-xl flex justify-between items-center px-container-margin py-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/30">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a competitive eSports player with a focused expression, wearing sleek futuristic headsets. The lighting is cinematic with sharp cyan and magenta neon highlights reflecting off their face. The background is a blurred high-tech arena with digital interfaces and glowing geometric patterns, maintaining a professional and intense gaming aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNr_S8U6qWNsSfPI0Ov6qkqjiGZT3oVAosGgWw-56vS2u_l3vShf23xmZsQQAwvkMk1GgFln0ZVkrkfhsbanTEIWaogeQuCHUlHRhxCYS3Xl-gAxg0xe6BLKTRdYkmzRXXXZo2vJ0OiWTkU6IinleyktAf96n3zgVlkXGH7tsBP7tNjUnbsoRxO8abeb2x9BAm5A-mhpGzG6vIBUeV5QfVdQKCjTXqAomw06v_-vC_jHq9qWm-7GQ4oVDxebWhxKC3cQnlrEq_zw_9"/>
+</div>
+<span class="font-display-lg text-headline-md tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">BATTLEMIND</span>
+</div>
+<div class="flex items-center gap-xs bg-surface-container-high px-sm py-xs rounded-full border border-white/5">
+<span class="material-symbols-outlined text-primary text-[18px]">payments</span>
+<span class="font-label-lg text-primary">1,250 CR</span>
+</div>
+</header>
+<main class="pt-[80px] pb-[100px] px-container-margin max-w-5xl mx-auto space-y-xl">
+<!-- VS Header Section -->
+<section class="relative grid grid-cols-3 items-center gap-gutter pt-lg">
+<!-- Team A -->
+<div class="flex flex-col items-center gap-base">
+<div class="relative group">
+<div class="absolute -inset-1 bg-primary rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+<div class="relative w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-primary overflow-hidden shadow-2xl">
+<img alt="Team A Captain" class="w-full h-full object-cover" data-alt="A portrait of a legendary gaming captain with silver-white hair and a sharp, determined look. They wear a high-collared tech-wear jersey with neon cyan accents. The scene is shot from a low angle to evoke dominance, with smoke and light beams cutting through the dark background. The color palette is dominated by deep blacks and electric cyan." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPvB6G0o8Ja8odA9rStH0F_gzvpnupx-IpdNjnWXCowhKQsm6Sq5CsX-1eJ52EhwH4BdV7vQH_lEek1R0JMJLe1Cs21GhL3hXQ55dgN0KrquznW2kWjp1FeHJ1kcoZh3hAGP0gIPYR6aht_038NXFx87dQA_WsYiI1jtB5MEUYoCWajPyb9hYbFTRUmO1b3QpiG3wmOaOME0yKhkrJiRmd9dw170hR4RdRvTo21_5zXPADHv_svML8pFC7epJ6R7IrULqKNpay0XVH"/>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mt-xs">TEAM A</h2>
+<div class="flex gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-primary/30" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</div>
+<!-- Health Bar Team A -->
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden mt-sm">
+<div class="h-full bg-primary w-3/4 progress-glow transition-all duration-1000"></div>
+</div>
+</div>
+<!-- Central Countdown -->
+<div class="flex flex-col items-center justify-center space-y-xs">
+<span class="font-label-sm text-on-surface-variant uppercase tracking-[0.2em]">Round Ends In</span>
+<div class="relative">
+<div class="absolute inset-0 bg-primary/10 blur-xl rounded-full"></div>
+<div class="relative text-[48px] md:text-[64px] font-display-lg text-primary tracking-tight animate-neon tabular-nums">04:22</div>
+</div>
+<div class="px-sm py-1 border border-primary/20 bg-primary/5 rounded-full flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] font-bold text-primary tracking-widest uppercase">Live Broadcast</span>
+</div>
+</div>
+<!-- Team B -->
+<div class="flex flex-col items-center gap-base text-right">
+<div class="relative group">
+<div class="absolute -inset-1 bg-secondary rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+<div class="relative w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-secondary overflow-hidden shadow-2xl">
+<img alt="Team B Captain" class="w-full h-full object-cover" data-alt="A portrait of a fierce female gamer captain with vibrant purple hair tied in a tactical braid. She wears a matte black stealth suit with glowing violet energy patterns. The lighting is moody with purple rim-lights and deep shadows, set in a futuristic control room filled with screens. High contrast and cinematic depth-of-field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRqxYXCYyHZYmDb063-YD3D014MiXKww8oPUYonFaaxGJvmSgOHlfdB3hgLgpJzUOaSOio-ZPxZqRhQ2BPTdZUPExxWM7x7yE_Qzay_FweUc3KPYLtZXGCjqG7Y-HPvN49Ns6auyhnbN7C_Ze_JJjXHOxGfPmtITLM-D-MDwC79UfNnfpD-pQz5ADJbhJkGpvIm2WxOFscGRsse7hyp_Xq68eIfA9aoudVp4oGqXXhxgkeHJUliXqUdh8YFJIXft19zinQzYWFn_wP"/>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md text-secondary mt-xs">TEAM B</h2>
+<div class="flex gap-xs">
+<span class="material-symbols-outlined text-secondary/30" style="font-variation-settings: 'FILL' 0;">favorite</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<!-- Health Bar Team B -->
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden mt-sm rotate-180">
+<div class="h-full bg-secondary w-[85%] shadow-[0_0_12px_rgba(218,185,255,0.8)] transition-all duration-1000"></div>
+</div>
+</div>
+</section>
+<!-- Current Scores Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Score Card A -->
+<div class="glass-card p-lg rounded-xl flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-all">
+<div class="space-y-xs">
+<span class="text-label-sm font-label-sm text-primary uppercase tracking-wider">Accumulated Points</span>
+<div class="text-[32px] font-display-lg text-on-surface">14,200 <span class="text-label-sm font-label-sm text-on-surface-variant">PTS</span></div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+</div>
+<!-- Score Card B -->
+<div class="glass-card p-lg rounded-xl flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-all">
+<div class="space-y-xs">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Accumulated Points</span>
+<div class="text-[32px] font-display-lg text-on-surface">13,850 <span class="text-label-sm font-label-sm text-on-surface-variant">PTS</span></div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+</div>
+</div>
+<!-- Action Section -->
+<div class="grid grid-cols-2 gap-gutter">
+<button class="glass-card p-lg rounded-xl flex flex-col items-center justify-center gap-xs active:scale-95 transition-transform border-white/5 hover:border-primary/40">
+<div class="w-14 h-14 rounded-full bg-primary-container/20 flex items-center justify-center text-primary mb-xs">
+<span class="material-symbols-outlined text-[32px]">forum</span>
+</div>
+<span class="font-headline-md text-label-lg">Discussion</span>
+<span class="text-label-sm text-on-surface-variant">248 online</span>
+</button>
+<button class="relative p-lg rounded-xl flex flex-col items-center justify-center gap-xs active:scale-95 transition-transform overflow-hidden group">
+<div class="absolute inset-0 bg-primary shadow-[inset_0_0_20px_rgba(255,255,255,0.2)]"></div>
+<div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative w-14 h-14 rounded-full bg-on-primary flex items-center justify-center text-primary mb-xs">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">gavel</span>
+</div>
+<span class="relative font-headline-md text-label-lg text-on-primary">Enchère</span>
+<span class="relative text-label-sm text-on-primary/70">Place bid now</span>
+</button>
+</div>
+<!-- Recent Activity Log (Bento Grid feel) -->
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="px-lg py-md border-b border-white/5 bg-white/5 flex justify-between items-center">
+<h3 class="font-label-lg uppercase tracking-widest text-on-surface-variant">Live Battle Feed</h3>
+<span class="text-xs text-primary animate-pulse">REC</span>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex gap-md items-start">
+<div class="w-2 h-2 mt-2 rounded-full bg-primary"></div>
+<div class="flex-1 space-y-1">
+<p class="text-sm"><span class="font-bold text-primary">Team A</span> executed a Precision Strike!</p>
+<p class="text-xs text-on-surface-variant">2 minutes ago</p>
+</div>
+<span class="text-sm font-mono text-primary">+450</span>
+</div>
+<div class="flex gap-md items-start opacity-70">
+<div class="w-2 h-2 mt-2 rounded-full bg-secondary"></div>
+<div class="flex-1 space-y-1">
+<p class="text-sm"><span class="font-bold text-secondary">Team B</span> countered with Shield Bash.</p>
+<p class="text-xs text-on-surface-variant">5 minutes ago</p>
+</div>
+<span class="text-sm font-mono text-secondary">+120</span>
+</div>
+<div class="flex gap-md items-start opacity-50">
+<div class="w-2 h-2 mt-2 rounded-full bg-on-surface-variant"></div>
+<div class="flex-1 space-y-1">
+<p class="text-sm">Round 4 initialized.</p>
+<p class="text-xs text-on-surface-variant">8 minutes ago</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 px-base pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-all duration-300 active:scale-110">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(73,247,226,0.6)] active:scale-110">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<span class="font-label-sm text-label-sm">Leagues</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-all duration-300 active:scale-110">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Comm</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary/80 transition-all duration-300 active:scale-110">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Player</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for countdown timer
+        let seconds = 262;
+        const timerElement = document.querySelector('.animate-neon');
+        
+        function updateTimer() {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            timerElement.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            if (seconds > 0) {
+                seconds--;
+            } else {
+                seconds = 300; // Reset just for demo
+            }
+        }
+        
+        setInterval(updateTimer, 1000);
+
+        // Click effects on buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const glow = document.createElement('div');
+                glow.className = 'absolute inset-0 bg-white/20 rounded-xl transition-opacity duration-300 opacity-0';
+                btn.appendChild(glow);
+                setTimeout(() => glow.classList.add('opacity-100'), 0);
+                setTimeout(() => {
+                    glow.classList.remove('opacity-100');
+                    setTimeout(() => glow.remove(), 300);
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

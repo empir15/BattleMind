@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>BATTLEMIND | Team Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Sora:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(to bottom right, rgba(255,255,255,0.05), transparent);
+        }
+        .message-bubble-inbound {
+            border-left: 3px solid #dab9ff; /* secondary */
+        }
+        .message-bubble-outbound {
+            border-right: 3px solid #49f7e2; /* primary */
+        }
+        .chat-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: rgba(73, 247, 226, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#005a51",
+                        "on-primary-fixed-variant": "#005048",
+                        "on-primary-fixed": "#00201c",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed-dim": "#17deca",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2e3037",
+                        "on-surface": "#e1e2eb",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#4ffbe6",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1d2026",
+                        "surface-tint": "#17deca",
+                        "on-error": "#690005",
+                        "surface-dim": "#10131a",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#cfa7ff",
+                        "background": "#10131a",
+                        "primary-container": "#03dac6",
+                        "primary": "#49f7e2",
+                        "outline": "#849490",
+                        "surface-container-low": "#191c22",
+                        "inverse-primary": "#006a60",
+                        "surface-variant": "#32353c",
+                        "on-primary": "#003731",
+                        "tertiary": "#cae0ff",
+                        "tertiary-container": "#97c6ff",
+                        "on-surface-variant": "#bacac6",
+                        "on-secondary-fixed-variant": "#5e289b",
+                        "surface-bright": "#363940",
+                        "on-secondary": "#460283",
+                        "secondary": "#dab9ff",
+                        "on-tertiary": "#003258",
+                        "on-secondary-fixed": "#2a0053",
+                        "secondary-fixed": "#eedbff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "surface": "#10131a",
+                        "secondary-fixed-dim": "#dab9ff",
+                        "secondary-container": "#602b9d",
+                        "surface-container-high": "#272a31",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-background": "#e1e2eb",
+                        "on-tertiary-container": "#00528c",
+                        "outline-variant": "#3b4a47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md overflow-hidden flex flex-col h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-low/60 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-container-margin py-md">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary active:scale-95 transition-transform" data-icon="arrow_back">arrow_back</button>
+<div class="flex items-center gap-base">
+<div class="w-10 h-10 rounded-full border border-primary/30 p-0.5 overflow-hidden">
+<img alt="Team Avatar" class="w-full h-full rounded-full object-cover" data-alt="A highly detailed 3D avatar of a futuristic eSports team logo, featuring a geometric wolf silhouette in vibrant neon cyan. The lighting is dramatic and cinematic, with deep shadows and sharp highlights characteristic of a high-stakes competitive atmosphere. The style is sleek, modern, and digital, using a palette of deep blacks and luminous turquoise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS9mwv7B4mAJEGZUI9ShOGBejGGud7xW4l0f6BwDWCicKJC3_-nmIq9PhjS5sp95EQHDQvCrErzkhkcHeqputGi4iVkD1DtUBXDzF9gRr2ygeuz5XSX09NN0Hwtz0Itz_58gvd5jz3UF9aCCCVlTLLJKR8NGWjVaTA3-0J3Vawd2J7KuIYnvSu-u8FJcqDe1W87YPGzgoa_UbySp3AQwfH2f4QhalzfVC5_e2Nh1dikacpMZUM9NC55pFpG6bFhLYa_n3B3rDIxUKJ"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md leading-none text-on-surface">TEAM ALPHA</h1>
+<span class="text-label-sm font-label-sm text-primary flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                        4 MEMBERS ONLINE
+                    </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="font-display-lg text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)] text-lg">1,250 CR</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity" data-icon="settings">settings</button>
+</div>
+</header>
+<!-- Chat Canvas -->
+<main class="flex-1 pt-24 pb-32 px-container-margin overflow-y-auto chat-scroll flex flex-col gap-xl">
+<!-- Day Divider -->
+<div class="flex items-center justify-center gap-md py-base">
+<div class="h-[1px] flex-1 bg-white/10"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">Today</span>
+<div class="h-[1px] flex-1 bg-white/10"></div>
+</div>
+<!-- Inbound Message 1 -->
+<div class="flex items-start gap-md max-w-[85%] group">
+<img alt="User" class="w-8 h-8 rounded-full bg-surface-container-high border border-white/10 shrink-0" data-alt="Close-up portrait of a futuristic gamer avatar with glowing holographic eyewear and sleek dark armor. The background is a blurred digital cockpit with ambient purple and cyan lighting. The aesthetic is high-tech, cinematic, and professional, consistent with a high-end eSports environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCniUfo-1o1Vyn6_9-Yqf_Rgo4ysjSA1IWWEW1ihGyPiydAR_WiRhbWjZaEAu8G3JJuvvrw6CJGptAEvE0X5zSPRJZCVV7ROv52lvdiewZQx9KTO1wNipQbgQfWfUWWe-ktZAC1RyX5dOAqzaoS4L8e-k4GD3zPMQ-WnLDL7eYwBHjsNjV132sPHhT5OxRmOky9faLAhc6tTaxp0bvXgYtgWsfbloUTdCnypawTFnWi5czrSgpwCti4vhc6q9V4OuZwJheNyw5Xg5XP"/>
+<div class="flex flex-col gap-xs">
+<span class="text-label-sm font-label-sm text-secondary px-xs">Ghost_Prowler</span>
+<div class="glass-card message-bubble-inbound p-md rounded-tr-xl rounded-br-xl rounded-bl-xl">
+<p class="text-body-md font-body-md text-on-surface">Has everyone checked the new scrim schedule for tonight?</p>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant/40 px-xs self-start">14:02</span>
+</div>
+</div>
+<!-- Outbound Message (Self) -->
+<div class="flex items-start gap-md max-w-[85%] self-end flex-row-reverse">
+<img alt="Self" class="w-8 h-8 rounded-full bg-surface-container-high border border-primary/30 shrink-0" data-alt="A stylized portrait of a competitive player wearing high-tech carbon fiber headsets with glowing cyan accents. The facial expression is focused and determined. The scene is lit by a cool-toned rim light that separates the character from a dark, digitally textured background. The overall look is professional and futuristic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzcodLsQJE4bkKIdeecbd3idiPXP8FaOXD-mnv0Sgm8wcnEhy3JNY_ey7JU77eUaOL_VnZpQ5LFr1bdekYuFIEhIz6XKbfILOg31FmfZUrMxCYAH-mHDKUItDJP1Pea2IU_0RIS4qreqdtQe0OjIiLfLXKeKATZgw5Vk00QfPtZtbfVwo2alf8w1JZDCXK6Q-DRv4MCMnjDeicYKoX-SPlPNZ1GIo5lIObP9wy6j-mzUN_nIHlFMLs7Nfdjo6ueFR_q9lM7MMmlCXB"/>
+<div class="flex flex-col gap-xs items-end">
+<span class="text-label-sm font-label-sm text-primary px-xs">You</span>
+<div class="glass-card message-bubble-outbound p-md rounded-tl-xl rounded-br-xl rounded-bl-xl bg-primary/5">
+<p class="text-body-md font-body-md text-on-surface">Ready when you guys are. My 1,250 CR is on the line, let's win this.</p>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant/40 px-xs">14:05</span>
+</div>
+</div>
+<!-- Inbound Message 2 (with Attachment) -->
+<div class="flex items-start gap-md max-w-[85%]">
+<img alt="User" class="w-8 h-8 rounded-full bg-surface-container-high border border-white/10 shrink-0" data-alt="Detailed futuristic avatar of a female gamer with neon purple hair and cybernetic enhancements around the eyes. The lighting is vibrant and neon-heavy, creating a high-energy eSports atmosphere. The character wears a sleek black and silver tactical vest. The background consists of abstract data streams and glowing circuits." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnCaYSHTJ51PsRojp1yktphPgQja94HmHbaOCq40csfOTpXFOJnr6yZ-dr3SC9hcPLnGMLyiKviU-9kyFmIxhtjsLZS7d1O2GfTvULEn0UNURd5I8dju5XXFPvYh-Qs_2rmvRCb74Cy4B4mdZkvPoy8mP7mD4hMlYyi1VehzEJ8GZJDZ6eXb2PlADGSGx5NMH5xa7kBM3pVxjovwvsFPRmFL2u9tt3fQCOUgXtKDlsLyWhI5JYrUrjLHRpUTTZdUdZeEXO6s0G6Pla"/>
+<div class="flex flex-col gap-xs">
+<span class="text-label-sm font-label-sm text-secondary px-xs">Viper_Striker</span>
+<div class="glass-card message-bubble-inbound p-md rounded-tr-xl rounded-br-xl rounded-bl-xl flex flex-col gap-md">
+<div class="rounded-lg overflow-hidden border border-white/10">
+<img alt="Tactical Map" class="w-full aspect-video object-cover" data-alt="A high-tech tactical map of a futuristic urban combat arena, shown as a glowing 3D wireframe overlay on a dark background. The map features highlighted strategic points in luminous cyan and red, with data readouts and topographic lines. The lighting is dim with sharp, bright accents from the holographic elements. The style is industrial and data-driven." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDcEnujd4Umvdibj8v637hmOFlf0PtRAmPDmQii9MfwXgj5pqI990cbPVBL4-a7A7C53g9OGro51A0XsbrUmSIkLzgUDo-xkyf0VPgHHhCvr9EHjo_A9BcYM_02CA1XbwdgFnuku1gsL-Pfo9HkPumgKL5Oiw-xAOVXbIcnBPYXNYw9RcuhdAT9SehD0D9HsqVZujN-H9lF4y2G5N6fqVhKQzNnVwTRr-ruEoSt3J_U7AgbjwzbvHBgUnGGIQJ7S-NCdRaP_LrOkmr"/>
+</div>
+<p class="text-body-md font-body-md text-on-surface">Here's the rotation plan for the Cyber-City map. Stick to the high ground.</p>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant/40 px-xs self-start">14:08</span>
+</div>
+</div>
+<!-- Inbound Message 3 -->
+<div class="flex items-start gap-md max-w-[85%] group">
+<img alt="User" class="w-8 h-8 rounded-full bg-surface-container-high border border-white/10 shrink-0" data-alt="A minimalist yet striking avatar of a professional eSports player with sleek silver hair and a subtle glowing visor. The character is set against a dark indigo background with geometric patterns. The lighting is soft but focuses on the sharp contours of the futuristic headset. The palette remains consistent with deep blacks and neon accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyOkIXu83HOqjgF1rgtai0_LD_lTclrO_BHSKiSIZjT_-E2mw7oKAj2ZqG2AcOgC36D4FOoDWJiv7GrC2o9Aou8vIe9sAjpsnac43ILrGBwfcIlN86KFg9nwrITSJBe4z7dzqhBZUKMVERlwyTj-uG1rYlrfVWfO0NBbm7tclhdx1fSl9goX92BOAh3XyGM-mIE4z0bwLFi0EiqGFa_yD5pNyw90I-UcXPRCGdB1SwQJG0wv_yN9wC5tIsAFNWJIcJedYASssXSpVC"/>
+<div class="flex flex-col gap-xs">
+<span class="text-label-sm font-label-sm text-secondary px-xs">Zenith_99</span>
+<div class="glass-card message-bubble-inbound p-md rounded-tr-xl rounded-br-xl rounded-bl-xl">
+<p class="text-body-md font-body-md text-on-surface">Agreed. I'll provide cover from the north ridge with the long-range railgun.</p>
+</div>
+<div class="flex gap-xs items-center mt-xs">
+<div class="flex -space-x-2">
+<span class="w-5 h-5 rounded-full glass-card flex items-center justify-center text-[10px] border-primary/50">🔥</span>
+<span class="w-5 h-5 rounded-full glass-card flex items-center justify-center text-[10px] border-primary/50">🎯</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant/40">2</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant/40 px-xs self-start">14:10</span>
+</div>
+</div>
+</main>
+<!-- Bottom Message Input Shell -->
+<div class="fixed bottom-0 w-full z-50 bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-white/10 pb-safe">
+<div class="flex items-center gap-md px-container-margin h-20">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors p-base active:scale-95" data-icon="add_circle">add_circle</button>
+<div class="flex-1 relative">
+<input class="w-full bg-black/20 border-0 border-b border-white/10 focus:ring-0 focus:border-primary text-on-surface placeholder:text-on-surface-variant/40 py-base px-md rounded-lg font-body-md transition-all" placeholder="Type tactical message..." type="text"/>
+<button class="absolute right-md top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant/60 hover:text-primary" data-icon="mood">mood</button>
+</div>
+<button class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shadow-[0_0_15px_rgba(73,247,226,0.3)] active:scale-95 transition-transform">
+<span class="material-symbols-outlined font-bold" data-icon="send">send</span>
+</button>
+</div>
+</div>
+<!-- Background Atmospheric Effects -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-20 overflow-hidden">
+<div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px] animate-pulse"></div>
+<div class="absolute -bottom-[10%] -right-[10%] w-[50%] h-[50%] rounded-full bg-secondary/10 blur-[150px]"></div>
+</div>
+<script>
+        // Simple Interaction: Send button micro-interaction
+        document.querySelector('button[data-icon="send"]').addEventListener('mousedown', () => {
+            this.style.boxShadow = '0 0 30px rgba(73, 247, 226, 0.6)';
+        });
+        document.querySelector('button[data-icon="send"]').addEventListener('mouseup', () => {
+            this.style.boxShadow = '0 0 15px rgba(73, 247, 226, 0.3)';
+        });
+
+        // Input Focus Effect
+        const chatInput = document.querySelector('input');
+        chatInput.addEventListener('focus', () => {
+            chatInput.parentElement.classList.add('scale-[1.01]');
+        });
+        chatInput.addEventListener('blur', () => {
+            chatInput.parentElement.classList.remove('scale-[1.01]');
+        });
+
+        // Scroll to bottom on load
+        window.onload = () => {
+            const main = document.querySelector('main');
+            main.scrollTop = main.scrollHeight;
+        };
+    </script>
+</body></html>

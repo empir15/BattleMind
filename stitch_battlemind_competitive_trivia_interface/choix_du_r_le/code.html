@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BATTLEMIND - Role Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        }
+        .judge-card {
+            background: linear-gradient(135deg, #212121 0%, #10131a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(73, 247, 226, 0.2);
+        }
+        .glow-judge {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        @keyframes pulse-cyan {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        .cyan-flare {
+            animation: pulse-cyan 4s infinite ease-in-out;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#005a51",
+                        "on-primary-fixed-variant": "#005048",
+                        "on-primary-fixed": "#00201c",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed-dim": "#17deca",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2e3037",
+                        "on-surface": "#e1e2eb",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#4ffbe6",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1d2026",
+                        "surface-tint": "#17deca",
+                        "on-error": "#690005",
+                        "surface-dim": "#10131a",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#cfa7ff",
+                        "background": "#10131a",
+                        "primary-container": "#03dac6",
+                        "primary": "#49f7e2",
+                        "outline": "#849490",
+                        "surface-container-low": "#191c22",
+                        "inverse-primary": "#006a60",
+                        "surface-variant": "#32353c",
+                        "on-primary": "#003731",
+                        "tertiary": "#cae0ff",
+                        "tertiary-container": "#97c6ff",
+                        "on-surface-variant": "#bacac6",
+                        "on-secondary-fixed-variant": "#5e289b",
+                        "surface-bright": "#363940",
+                        "on-secondary": "#460283",
+                        "secondary": "#dab9ff",
+                        "on-tertiary": "#003258",
+                        "on-secondary-fixed": "#2a0053",
+                        "secondary-fixed": "#eedbff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "surface": "#10131a",
+                        "secondary-fixed-dim": "#dab9ff",
+                        "secondary-container": "#602b9d",
+                        "surface-container-high": "#272a31",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-background": "#e1e2eb",
+                        "on-tertiary-container": "#00528c",
+                        "outline-variant": "#3b4a47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface min-h-screen font-body-md selection:bg-primary/30">
+<!-- Header Section (Transactional suppression of Full TopAppBar, keeping Brand Anchor) -->
+<header class="fixed top-0 w-full z-50 flex justify-center items-center py-xl px-container-margin">
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.5)]">
+            BATTLEMIND
+        </h1>
+</header>
+<main class="relative pt-32 pb-12 px-container-margin flex flex-col items-center justify-center min-h-screen overflow-hidden">
+<!-- Atmospheric Background Elements -->
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px] cyan-flare"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/5 blur-[120px]"></div>
+<div class="z-10 text-center mb-xl max-w-2xl">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-base text-on-surface">Choisissez votre destin</h2>
+<p class="font-body-md text-on-surface-variant opacity-80">Rejoignez l'arène en tant que maître de cérémonie ou prouvez votre agilité mentale sur le terrain.</p>
+</div>
+<!-- Bento Grid Selection -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg w-full max-w-5xl z-10">
+<!-- Judge Card -->
+<button class="group relative flex flex-col items-start p-xl rounded-xl judge-card overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 text-left glow-judge border border-white/5" onclick="selectRole('judge')">
+<div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-16 h-16 rounded-lg bg-surface-container-high flex items-center justify-center mb-lg border border-white/10 group-hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors" data-icon="gavel">gavel</span>
+</div>
+<div class="mt-auto">
+<span class="font-label-sm text-label-sm text-primary/60 tracking-widest mb-xs block">HOST &amp; AUTHORITY</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Être Juge</h3>
+<p class="font-body-md text-on-surface-variant opacity-70 mb-lg">Contrôlez le flux du jeu, validez les réponses et maintenez l'intégrité de la compétition.</p>
+<div class="flex items-center gap-xs font-label-lg text-label-lg text-primary opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0">
+                        SÉLECTIONNER <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Abstract background image for Judge -->
+<div class="absolute -bottom-10 -right-10 w-48 h-48 opacity-10 group-hover:opacity-20 transition-opacity grayscale contrast-125">
+<img alt="Gavel" class="object-cover w-full h-full" data-alt="A cinematic, high-contrast close-up of a professional judge's gavel resting on a dark marble surface. The lighting is dramatic and moody, emphasizing textures and sharp edges in a deep charcoal and black palette. The atmosphere is solemn and authoritative, perfectly fitting an eSports command center aesthetic with subtle digital overlays in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsIaELr8ZMJKnA61jt-4I8FT5dakUBHBXKzldS7IZT7EA6vccRwRAbIP15ZwbLWz5_5E47dI7z9RSDx7tkXIXDFVfb-h4PUVBIO0gWfBbAcIsjHaXgRme4xLbRAezr5672tI9_u7F_FcCeVgNgGbVD0k9sIDieQrBmTcfOzvTBWBxiVN79_D92YQSUHQQ-MwsiFkkxU6pwcaMiO8-myYHwGXZM561RWHzrz_PuvhbwnwFRKsMh2aYIspbcqy9OyPCiVu79BxD0NTXG"/>
+</div>
+</button>
+<!-- Player Card -->
+<button class="group relative flex flex-col items-start p-xl rounded-xl glass-card overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 text-left glow-cyan border border-primary/20" onclick="selectRole('player')">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center mb-lg border border-primary/20 group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div class="mt-auto">
+<span class="font-label-sm text-label-sm text-primary tracking-widest mb-xs block">COMPETITIVE ATHLETE</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Être Joueur</h3>
+<p class="font-body-md text-on-surface-variant opacity-70 mb-lg">Affrontez des adversaires, résolvez des énigmes complexes et grimpez au sommet du classement.</p>
+<div class="flex items-center gap-xs font-label-lg text-label-lg text-primary">
+                        SÉLECTIONNER <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Abstract background image for Player -->
+<div class="absolute -bottom-10 -right-10 w-48 h-48 opacity-10 group-hover:opacity-30 transition-opacity">
+<img alt="Technology" class="object-cover w-full h-full" data-alt="A futuristic digital brain illustration with glowing cyan neural pathways connecting complex geometric nodes. The style is ultra-modern and high-tech, set against a deep obsidian background with subtle lens flares and a cinematic depth of field. The vibrant cyan accents pop against the dark environment, creating a sense of advanced artificial intelligence and mental speed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFl0xMsjdnn37VtUhnBFmxym47n_zTxkI40COMSWUbqNko1EqHKEdRcV90W8xxTltECoiaCdQASs5E5NM-R6ZJMq6wzJaneXoXE34bdlhYAk0sFTMASGE58Q0CPB6GJGPw57zfY3qjsVlVc5IE1KaFkeeJNocS2ZpuVrIzly_y9qgU-LeW5fZR2UnE0mqQB_QygNKE0c7Sm-3ZLGm8hugS9BFLRyio2y7w9v7kG5XXRXSQtqyy-T-5iW32PtaLoAUVTO7E8Dtad4aq"/>
+</div>
+</button>
+</div>
+<div class="mt-xl z-10 flex flex-col items-center gap-base">
+<p class="font-label-sm text-label-sm text-on-surface-variant/40">Besoin d'aide pour choisir ? <a class="text-primary hover:underline transition-all" href="#">Consultez le guide des rôles</a></p>
+</div>
+</main>
+<!-- Footer Identity -->
+<footer class="fixed bottom-0 w-full p-lg flex justify-between items-center z-50 pointer-events-none">
+<div class="flex items-center gap-sm">
+<div class="h-[1px] w-12 bg-white/10"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/40 tracking-widest uppercase">Global Arena V2.4</span>
+</div>
+<div class="flex gap-md pointer-events-auto">
+<button class="p-xs text-on-surface-variant/60 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="help">help</span>
+</button>
+<button class="p-xs text-on-surface-variant/60 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+</button>
+</div>
+</footer>
+<script>
+        function selectRole(role) {
+            console.log('Role selected:', role);
+            // Flash effect on selection
+            const body = document.body;
+            const originalBg = body.style.backgroundColor;
+            
+            if(role === 'player') {
+                body.classList.add('transition-all', 'duration-300');
+                body.style.backgroundColor = 'rgba(73, 247, 226, 0.05)';
+                setTimeout(() => body.style.backgroundColor = originalBg, 300);
+            } else {
+                body.classList.add('transition-all', 'duration-300');
+                body.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                setTimeout(() => body.style.backgroundColor = originalBg, 300);
+            }
+        }
+
+        // Parallax-ish mouse interaction
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.glass-card, .judge-card');
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            
+            cards.forEach(card => {
+                card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) scale(1)`;
+            });
+        });
+    </script>
+</body></html>

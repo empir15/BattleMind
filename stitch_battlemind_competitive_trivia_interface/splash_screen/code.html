@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>BATTLEMIND - Splash Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d36",
+                        "on-primary-container": "#005a51",
+                        "on-primary-fixed-variant": "#005048",
+                        "on-primary-fixed": "#00201c",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed-dim": "#17deca",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2e3037",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#e1e2eb",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#4ffbe6",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1d2026",
+                        "surface-tint": "#17deca",
+                        "on-error": "#690005",
+                        "surface-dim": "#10131a",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#cfa7ff",
+                        "background": "#10131a",
+                        "primary-container": "#03dac6",
+                        "primary": "#49f7e2",
+                        "outline": "#849490",
+                        "surface-container-low": "#191c22",
+                        "inverse-primary": "#006a60",
+                        "surface-bright": "#363940",
+                        "on-secondary": "#460283",
+                        "secondary": "#dab9ff",
+                        "on-tertiary": "#003258",
+                        "on-secondary-fixed": "#2a0053",
+                        "secondary-fixed": "#eedbff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-tertiary-fixed-variant": "#00497d",
+                        "surface": "#10131a",
+                        "secondary-fixed-dim": "#dab9ff",
+                        "secondary-container": "#602b9d",
+                        "surface-container-high": "#272a31",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "on-background": "#e1e2eb",
+                        "on-tertiary-container": "#00528c",
+                        "outline-variant": "#3b4a47"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "container-margin": "20px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        @keyframes pulse-cyan {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(73, 247, 226, 0.3);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .bg-mesh {
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(73, 247, 226, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(107, 33, 168, 0.15) 0%, transparent 40%);
+        }
+        .animate-brain {
+            filter: drop-shadow(0 0 15px rgba(73, 247, 226, 0.5));
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface overflow-hidden selection:bg-primary selection:text-on-primary">
+<!-- Global Background Elements -->
+<div class="fixed inset-0 z-0 pointer-events-none">
+<div class="absolute inset-0 bg-mesh opacity-60"></div>
+<div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[120px]"></div>
+<!-- Scanline effect -->
+<div class="absolute inset-0 opacity-[0.03] overflow-hidden pointer-events-none">
+<div class="w-full h-[2px] bg-primary animate-[scanline_8s_linear_infinite]"></div>
+</div>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 min-h-screen flex flex-col items-center justify-between px-container-margin py-xl lg:py-32">
+<!-- Header Branding (Hidden on Mobile, simplified on desktop) -->
+<header class="hidden lg:flex w-full max-w-7xl justify-between items-center opacity-0 animate-[fadeIn_1s_ease-out_forwards]">
+<span class="font-display-lg text-headline-md tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(73,247,226,0.3)]">BATTLEMIND</span>
+<div class="flex gap-md">
+<div class="glass-panel px-md py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">sensors</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary/80">Sync Active</span>
+</div>
+</div>
+</header>
+<!-- Central Hero Section -->
+<div class="flex-1 flex flex-col items-center justify-center w-full">
+<!-- Animated Brain/Logo Container -->
+<div class="relative group cursor-pointer mb-xl">
+<!-- Aura Glows -->
+<div class="absolute inset-0 bg-primary/20 blur-[60px] rounded-full scale-125 animate-[pulse-cyan_5s_infinite]"></div>
+<div class="absolute inset-0 bg-secondary/10 blur-[80px] rounded-full scale-150 animate-[pulse-cyan_7s_infinite_reverse]"></div>
+<!-- Main Image Asset -->
+<div class="relative animate-brain">
+<img alt="BattleMind Logo" class="w-[280px] md:w-[400px] h-auto transition-transform duration-700 group-hover:scale-110" data-alt="A futuristic eSports logo for 'BattleMind' featuring a high-tech stylized human brain with digital circuitry patterns. The artwork is illuminated with vibrant cyan and violet neon glows against a dark matte background. The aesthetic is clean, professional, and aggressive, reflecting peak cognitive performance and digital strategy. Intricate glowing paths simulate data flowing through neurons." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNkUqSVIWyUUBd7-05uB5fWtxYRebH2EPmy3j-QfMfoaLckBf_W8OdE8BmG_yoBRmjhT4O3VCX1yiGhhRDzc_GTBXrlf2OUiOBLliXr3uf9lNZ-TyIv34Zzgy7sT3LywonEiZ3FxiT9Y8YKnxTQUwkN2bSGtRfwJAZDRtWYGhxOtV90SzPcA7Ecc0cMWTsOjcSXYlQtCW9i49F04EyhOmjtEgnYWWmiBi1M91bVz2U8keHUbXE9fEyw_EnTP_707oUcsE_sSoZpgua"/>
+</div>
+</div>
+<!-- Title & Slogan -->
+<div class="text-center space-y-md max-w-lg opacity-0 animate-[fadeInUp_1s_ease-out_0.5s_forwards]">
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tighter drop-shadow-lg leading-none">
+                    DOMINEZ LE <span class="text-primary italic">RÉSEAU</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xs mx-auto">
+                    Entraînez vos réflexes cognitifs dans l'arène de combat mental ultime.
+                </p>
+</div>
+</div>
+<!-- Footer / Action Area -->
+<div class="w-full max-w-md flex flex-col items-center gap-lg pb-safe opacity-0 animate-[fadeInUp_1s_ease-out_1s_forwards]">
+<!-- Secondary Info -->
+<div class="flex items-center gap-md mb-xs">
+<div class="h-[1px] w-12 bg-white/10"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/40 tracking-[0.2em] uppercase">Ready for uplink</span>
+<div class="h-[1px] w-12 bg-white/10"></div>
+</div>
+<!-- Primary Action Button -->
+<button class="relative w-full group overflow-hidden bg-primary text-on-primary font-headline-md text-headline-md py-lg px-xl rounded-xl transition-all duration-300 active:scale-95 shadow-[0_0_30px_rgba(73,247,226,0.3)] hover:shadow-[0_0_50px_rgba(73,247,226,0.5)]">
+<span class="relative z-10 flex items-center justify-center gap-md">
+                    COMMENCER
+                    <span class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:translate-x-2">arrow_forward_ios</span>
+</span>
+<!-- Hover Sweep Effect -->
+<div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out skew-x-[-20deg]"></div>
+</button>
+<!-- Metadata/Version -->
+<div class="flex justify-between w-full font-label-sm text-label-sm text-on-surface-variant/30 px-sm">
+<span>V 4.0.2-STABLE</span>
+<span>SYSTEM: NOMINAL</span>
+</div>
+</div>
+</main>
+<!-- Overlay Gradients for Depth -->
+<div class="fixed inset-0 z-20 pointer-events-none border-[1px] border-white/5 m-4 rounded-[2rem] lg:m-8 lg:rounded-[3rem]"></div>
+<script>
+        // Micro-interactions and Entrance Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeInUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Subtle mouse movement effect for glass layers
+            window.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+                
+                const brain = document.querySelector('.animate-brain');
+                if (brain) {
+                    brain.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                }
+            });
+        });
+    </script>
+</body></html>

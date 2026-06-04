@@ -14,11 +14,12 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Switch,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/stack';
 import type { RootStackParamList } from '../../navigation/types';
 import { colors, spacing, borderRadius } from '../../constants/theme';
-import { serverConfig } from '../../config/serverConfig';
+import { serverConfig, ConnectionMode } from '../../config/serverConfig';
 
 // Nouveaux composants UI animés
 import NeonButton from '../../components/ui/NeonButton';
@@ -29,6 +30,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 export default function HomeScreen({ navigation }: Props): React.JSX.Element {
   const [serverIp, setServerIp] = useState('');
   const [pseudo, setPseudo] = useState('');
+  const [isOnline, setIsOnline] = useState(false);
   const [isIpFocused, setIsIpFocused] = useState(false);
   const [isPseudoFocused, setIsPseudoFocused] = useState(false);
 
@@ -36,24 +38,13 @@ export default function HomeScreen({ navigation }: Props): React.JSX.Element {
   useEffect(() => {
     setServerIp(serverConfig.getServerIp());
     setPseudo(serverConfig.getLastPseudo());
+    setIsOnline(serverConfig.getConnectionMode() === 'online');
   }, []);
 
   const handleNext = () => {
     const cleanIp = serverIp.trim();
     const cleanPseudo = pseudo.trim();
-
-    // Expression régulière simple pour valider un format IP (ex: 192.168.1.50)
-    const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
-
-    if (!cleanIp) {
-      Alert.alert('Erreur', 'Veuillez saisir l\'adresse IP locale du serveur PC.');
-      return;
-    }
-
-    if (!ipRegex.test(cleanIp)) {
-      Alert.alert('IP Invalide', 'Le format de l\'adresse IP est incorrect (ex: 192.168.1.15).');
-      return;
-    }
+    const mode: ConnectionMode = isOnline ? 'online' : 'local';
 
     if (!cleanPseudo) {
       Alert.alert('Erreur', 'Veuillez saisir votre pseudo de jeu.');
@@ -65,8 +56,26 @@ export default function HomeScreen({ navigation }: Props): React.JSX.Element {
       return;
     }
 
+    if (!isOnline) {
+      // Expression régulière simple pour valider un format IP (ex: 192.168.1.50)
+      const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+
+      if (!cleanIp) {
+        Alert.alert('Erreur', 'Veuillez saisir l\'adresse IP locale du serveur PC.');
+        return;
+      }
+
+      if (!ipRegex.test(cleanIp)) {
+        Alert.alert('IP Invalide', 'Le format de l\'adresse IP est incorrect (ex: 192.168.1.15).');
+        return;
+      }
+    }
+
     // Sauvegarde en local persistant MMKV
-    serverConfig.setServerIp(cleanIp);
+    serverConfig.setConnectionMode(mode);
+    if (!isOnline) {
+      serverConfig.setServerIp(cleanIp);
+    }
     serverConfig.setLastPseudo(cleanPseudo);
 
     // Navigation vers la sélection du rôle (Juge ou Joueur)
@@ -100,23 +109,53 @@ export default function HomeScreen({ navigation }: Props): React.JSX.Element {
             onBlur={() => setIsPseudoFocused(false)}
           />
 
-          {/* Champ IP */}
-          <Text style={[styles.label, { marginTop: spacing.lg }]}>ADRESSE IP DU SERVEUR (LAN)</Text>
-          <TextInput
-            style={[styles.input, isIpFocused && styles.inputActive]}
-            value={serverIp}
-            onChangeText={setServerIp}
-            placeholder="Ex: 192.168.1.15"
-            placeholderTextColor={colors.textMuted}
-            keyboardType="numeric"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onFocus={() => setIsIpFocused(true)}
-            onBlur={() => setIsIpFocused(false)}
-          />
-          <Text style={styles.infoText}>
-            L'IP s'affiche sur la console du serveur PC au démarrage. Assurez-vous d'être connecté au même Wi-Fi.
-          </Text>
+          {/* Switch Mode Online/Local */}
+          <View style={styles.modeContainer}>
+            <View>
+              <Text style={styles.modeLabel}>MODE ONLINE</Text>
+              <Text style={styles.modeDescription}>
+                {isOnline ? 'Jouer sur Internet' : 'Jouer sur Réseau Local (LAN)'}
+              </Text>
+            </View>
+            <Switch
+              trackColor={{ false: '#2D3748', true: colors.primary + '80' }}
+              thumbColor={isOnline ? colors.primary : '#A0AEC0'}
+              ios_backgroundColor="#2D3748"
+              onValueChange={setIsOnline}
+              value={isOnline}
+            />
+          </View>
+
+          {/* Champ IP (Affiché uniquement si non Online) */}
+          {!isOnline && (
+            <>
+              <Text style={[styles.label, { marginTop: spacing.lg }]}>ADRESSE IP DU SERVEUR (LAN)</Text>
+              <TextInput
+                style={[styles.input, isIpFocused && styles.inputActive]}
+                value={serverIp}
+                onChangeText={setServerIp}
+                placeholder="Ex: 192.168.1.15"
+                placeholderTextColor={colors.textMuted}
+                keyboardType="numeric"
+                autoCapitalize="none"
+                autoCorrect={false}
+                onFocus={() => setIsIpFocused(true)}
+                onBlur={() => setIsIpFocused(false)}
+              />
+              <Text style={styles.infoText}>
+                L'IP s'affiche sur la console du serveur PC au démarrage. Assurez-vous d'être connecté au même Wi-Fi.
+              </Text>
+            </>
+          )}
+
+          {isOnline && (
+            <View style={styles.onlineInfoContainer}>
+              <Text style={styles.onlineInfoLabel}>🌐 SERVEUR CIBLE</Text>
+              <Text style={styles.onlineInfoUrl} numberOfLines={1}>
+                {serverConfig.getOnlineUrl()}
+              </Text>
+            </View>
+          )}
         </GlassCard>
 
         {/* Bouton Suivant */}
@@ -171,6 +210,26 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     marginBottom: spacing.sm,
   },
+  modeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: spacing.lg,
+    paddingTop: spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.1)',
+  },
+  modeLabel: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    letterSpacing: 1.5,
+  },
+  modeDescription: {
+    fontSize: 11,
+    color: colors.textMuted,
+    marginTop: 2,
+  },
   input: {
     backgroundColor: colors.surfaceLight,
     borderColor: '#2D3748',
@@ -194,5 +253,25 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     marginTop: spacing.sm,
     lineHeight: 16,
+  },
+  onlineInfoContainer: {
+    marginTop: spacing.md,
+    padding: spacing.sm,
+    backgroundColor: 'rgba(99, 179, 237, 0.08)',
+    borderRadius: borderRadius.sm,
+    borderWidth: 1,
+    borderColor: colors.primary + '40',
+  },
+  onlineInfoLabel: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: colors.primary,
+    letterSpacing: 1.5,
+    marginBottom: 4,
+  },
+  onlineInfoUrl: {
+    fontSize: 12,
+    color: colors.textMuted,
+    fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
   },
 });

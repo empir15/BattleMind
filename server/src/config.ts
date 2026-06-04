@@ -11,17 +11,20 @@ export const config = {
   },
   socket: {
     cors: {
-      origin: '*',
+      origin: process.env.CORS_ORIGIN || '*',
       methods: ['GET', 'POST'],
     },
     pingTimeout: 15000,
     pingInterval: 5000,
   },
   db: {
-    path: './data/battlemind.db',
+    // Sur Render : pointer vers /var/data/battlemind.db (disque persistant)
+    // En local   : ./data/battlemind.db par défaut
+    path: process.env.DATABASE_PATH || './data/battlemind.db',
   },
   logs: {
     dir: './logs',
     level: process.env.LOG_LEVEL || 'info',
   },
 } as const;
+

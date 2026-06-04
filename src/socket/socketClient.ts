@@ -32,12 +32,16 @@ export function connectSocket(
     return null;
   }
 
-  console.log(`[Socket] Tentative de connexion sur : ${serverUrl}`);
+  const isOnline = serverConfig.getConnectionMode() === 'online';
+  console.log(`[Socket] Tentative de connexion sur : ${serverUrl} (mode: ${isOnline ? 'online' : 'LAN'})`);
 
+  // En mode Online : polling d'abord pour la négociation, puis upgrade WebSocket automatique
+  // En mode LAN   : WebSocket direct pour latence minimale
   socket = io(serverUrl, {
-    transports: ['websocket'],
+    transports: isOnline ? ['polling', 'websocket'] : ['websocket'],
     autoConnect: false,
     forceNew: true,
+    timeout: isOnline ? 10000 : 5000,
   });
 
   // ── Événements de connexion ─────────────────────────────────

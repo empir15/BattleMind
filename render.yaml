@@ -1,0 +1,47 @@
+# ============================================================
+# BattleMind — Configuration Render (Infrastructure as Code)
+# Ce fichier permet à Render de déployer automatiquement
+# le serveur depuis votre repo GitHub.
+# ============================================================
+
+services:
+  - type: web
+    name: battlemind-server
+    runtime: node
+    region: frankfurt  # Plus proche de l'Europe/Afrique du Nord
+
+    # ── Répertoire de build ───────────────────────────────────
+    rootDir: server
+
+    # ── Commandes ────────────────────────────────────────────
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+
+    # ── Plan (gratuit) ───────────────────────────────────────
+    plan: free
+
+    # ── Variables d'environnement ────────────────────────────
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: HOST
+        value: 0.0.0.0
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: LOG_LEVEL
+        value: info
+      - key: DATABASE_PATH
+        value: /var/data/battlemind.db
+
+    # ── Disque persistant (pour SQLite) ─────────────────────
+    # IMPORTANT : Sans ça, la base de données est effacée
+    # à chaque redémarrage du serveur !
+    disk:
+      name: battlemind-data
+      mountPath: /var/data
+      sizeGB: 1
+
+    # ── Health Check ─────────────────────────────────────────
+    healthCheckPath: /health

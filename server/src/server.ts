@@ -3,6 +3,9 @@
 // Démarre le serveur HTTP Express et le serveur Socket.IO.
 // ============================================================
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -20,6 +23,20 @@ const io = new Server(httpServer, {
   },
   pingTimeout: config.socket.pingTimeout,
   pingInterval: config.socket.pingInterval,
+});
+
+// Middleware JSON
+app.use(express.json());
+
+// ── Health Check ─────────────────────────────────────────────
+// Render (et autres hébergeurs) appellent ce endpoint pour vérifier
+// que le serveur est vivant. Sans ça, l'instance est tuée après 30s.
+app.get('/health', (_req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    service: 'BattleMind Server',
+    timestamp: new Date().toISOString(),
+  });
 });
 
 // Initialise la base de données SQLite et applique le seed questions

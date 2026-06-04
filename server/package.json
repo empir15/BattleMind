@@ -4,7 +4,7 @@
   "description": "BattleMind — Serveur Node.js LAN/Online",
   "main": "dist/server/src/server.js",
   "engines": {
-    "node": ">=18.0.0"
+    "node": "20.x"
   },
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec ts-node -r tsconfig-paths/register src/server.ts",

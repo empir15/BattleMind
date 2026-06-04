@@ -73,3 +73,10 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Server — fichiers compilés (générés par tsc, ne pas commiter)
+server/dist/
+
+# Variables d'environnement (secrets — ne JAMAIS commiter)
+.env
+server/.env

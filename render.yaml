@@ -22,6 +22,8 @@ services:
 
     # ── Variables d'environnement ────────────────────────────
     envVars:
+      - key: NODE_VERSION
+        value: "20"              # Forcer Node 20 LTS (better-sqlite3 v9 incompatible avec Node 26)
       - key: NODE_ENV
         value: production
       - key: PORT

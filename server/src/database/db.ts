@@ -12,20 +12,31 @@ import { seedQuestions } from './seeds';
 
 let db: Database.Database;
 
-/**
- * Initialise la connexion SQLite et crée les tables si nécessaire.
- * Doit être appelé une seule fois au démarrage du serveur.
- */
 export function initDatabase(): Database.Database {
-  const dbPath = path.resolve(config.db.path);
-  const dbDir = path.dirname(dbPath);
+  let dbPath = path.resolve(config.db.path);
+  let dbDir = path.dirname(dbPath);
 
-  // Crée le dossier data/ si inexistant
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir, { recursive: true });
+  try {
+    // Crée le dossier data/ si inexistant
+    if (!fs.existsSync(dbDir)) {
+      fs.mkdirSync(dbDir, { recursive: true });
+    }
+    db = new Database(dbPath);
+  } catch (error: any) {
+    // En cas d'erreur de permission (ex: Render gratuit sans disque avec /var/data)
+    if (error.code === 'EACCES') {
+      logger.warn(`Erreur de permission d'accès à ${dbPath}. Repli automatique vers ./data/battlemind.db (stockage éphémère).`, { error: error.message });
+      dbPath = path.resolve('./data/battlemind.db');
+      dbDir = path.dirname(dbPath);
+      if (!fs.existsSync(dbDir)) {
+        fs.mkdirSync(dbDir, { recursive: true });
+      }
+      db = new Database(dbPath);
+    } else {
+      logger.error(`Échec de l'initialisation de la base de données à ${dbPath}`, { error: error.message });
+      throw error;
+    }
   }
-
-  db = new Database(dbPath);
 
   // Active le mode WAL pour de meilleures performances
   db.pragma('journal_mode = WAL');
